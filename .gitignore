@@ -1,0 +1,25 @@
+# Variables de entorno — NUNCA commitear
+.env
+*.env
+!.env.example
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+
+# Angular / Node
+node_modules/
+dist/
+.angular/
+
+# OS
+.DS_Store
+Thumbs.db

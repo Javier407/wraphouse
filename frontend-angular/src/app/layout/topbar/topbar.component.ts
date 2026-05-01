@@ -1,11 +1,11 @@
-// src/app/layout/topbar/topbar.component.ts
-
 import {
   ChangeDetectionStrategy, Component,
   EventEmitter, OnDestroy, OnInit,
   Output, inject, signal
 } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
+import { Subject, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MotoService } from '../../core/services/moto.service';
 
 @Component({
@@ -20,20 +20,21 @@ export class TopbarComponent implements OnInit, OnDestroy {
   @Output() menuToggled = new EventEmitter<void>();
 
   private readonly motoSvc = inject(MotoService);
+  private readonly destroy$ = new Subject<void>();
 
   readonly apiStatus$ = this.motoSvc.apiStatus$;
   readonly dateStr    = signal('');
   readonly spinning   = signal(false);
 
-  private _interval?: ReturnType<typeof setInterval>;
-
   ngOnInit(): void {
-    this._tick();
-    this._interval = setInterval(() => this._tick(), 60_000);
+    timer(0, 60_000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.dateStr.set(this._formatDate()));
   }
 
   ngOnDestroy(): void {
-    clearInterval(this._interval);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   refresh(): void {
@@ -43,11 +44,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
     setTimeout(() => this.spinning.set(false), 700);
   }
 
-  private _tick(): void {
-    this.dateStr.set(
-      new Date().toLocaleDateString('es-CO', {
-        weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
-      })
-    );
+  private _formatDate(): string {
+    return new Date().toLocaleDateString('es-CO', {
+      weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+    });
   }
 }

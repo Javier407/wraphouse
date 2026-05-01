@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBase: 'http://localhost:8860/kick',
+  apiBase: 'https://TU_DOMINIO_BACKEND.com/kick', // ← reemplazar con URL real en producción
 };

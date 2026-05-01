@@ -1,7 +1,7 @@
-// src/main/java/co/vinni/motos/repositorio/entity/PPFEntity.java
+package co.vinni.moto.infraestructura.persistencia;
 
-package co.vinni.moto.dominio.repositorio;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ppf")
@@ -24,9 +24,8 @@ public class PPFEntity {
     @ElementCollection
     @CollectionTable(name = "ppf_partes", joinColumns = @JoinColumn(name = "ppf_id"))
     @Column(name = "parte")
-    private java.util.List<String> partes;
+    private List<String> partes;
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -39,6 +38,6 @@ public class PPFEntity {
     public Integer getKit() { return kit; }
     public void setKit(Integer kit) { this.kit = kit; }
 
-    public java.util.List<String> getPartes() { return partes; }
-    public void setPartes(java.util.List<String> partes) { this.partes = partes; }
+    public List<String> getPartes() { return partes; }
+    public void setPartes(List<String> partes) { this.partes = partes; }
 }

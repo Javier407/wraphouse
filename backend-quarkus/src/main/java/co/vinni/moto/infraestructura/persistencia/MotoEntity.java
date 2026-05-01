@@ -1,7 +1,5 @@
-// src/main/java/co/vinni/motos/repositorio/entity/MotoEntity.java
-// ⚠️ ACTUALIZACIÓN: Se agregó campo foto_url
+package co.vinni.moto.infraestructura.persistencia;
 
-package co.vinni.moto.dominio.repositorio;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -27,7 +25,7 @@ public class MotoEntity {
     @Column(nullable = false)
     private String cliente;
 
-    @Column(name = "foto_url")              // ⭐ NUEVO CAMPO
+    @Column(name = "foto_url")
     private String fotoUrl;
 
     @Column(name = "fecha_registro", nullable = false)
@@ -35,12 +33,9 @@ public class MotoEntity {
 
     @PrePersist
     public void prePersist() {
-        if (fechaRegistro == null) {
-            fechaRegistro = LocalDateTime.now();
-        }
+        if (fechaRegistro == null) fechaRegistro = LocalDateTime.now();
     }
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

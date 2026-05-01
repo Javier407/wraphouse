@@ -1,6 +1,5 @@
-// src/main/java/co/vinni/motos/repositorio/entity/ServicioEntity.java
+package co.vinni.moto.infraestructura.persistencia;
 
-package co.vinni.moto.dominio.repositorio;
 import co.vinni.moto.dominio.modelo.TipoServicio;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -23,7 +22,6 @@ public class ServicioEntity {
     @Column(name = "fecha", nullable = false)
     private LocalDateTime fecha;
 
-    // Relaciones 1-1 opcionales con subtipos
     @OneToOne(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true)
     private DisenoEntity diseno;
 
@@ -38,12 +36,9 @@ public class ServicioEntity {
 
     @PrePersist
     public void prePersist() {
-        if (fecha == null) {
-            fecha = LocalDateTime.now();
-        }
+        if (fecha == null) fecha = LocalDateTime.now();
     }
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -59,32 +54,24 @@ public class ServicioEntity {
     public DisenoEntity getDiseno() { return diseno; }
     public void setDiseno(DisenoEntity diseno) {
         this.diseno = diseno;
-        if (diseno != null) {
-            diseno.setServicio(this);
-        }
+        if (diseno != null) diseno.setServicio(this);
     }
 
     public PPFEntity getPpf() { return ppf; }
     public void setPpf(PPFEntity ppf) {
         this.ppf = ppf;
-        if (ppf != null) {
-            ppf.setServicio(this);
-        }
+        if (ppf != null) ppf.setServicio(this);
     }
 
     public DetailingEntity getDetailing() { return detailing; }
     public void setDetailing(DetailingEntity detailing) {
         this.detailing = detailing;
-        if (detailing != null) {
-            detailing.setServicio(this);
-        }
+        if (detailing != null) detailing.setServicio(this);
     }
 
     public ProtectorEntity getProtector() { return protector; }
     public void setProtector(ProtectorEntity protector) {
         this.protector = protector;
-        if (protector != null) {
-            protector.setServicio(this);
-        }
+        if (protector != null) protector.setServicio(this);
     }
 }
