@@ -1,0 +1,8 @@
+{
+  "/kick": {
+    "target": "http://localhost:8860",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

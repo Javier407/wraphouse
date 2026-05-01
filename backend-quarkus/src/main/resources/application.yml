@@ -1,0 +1,39 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    jdbc:
+      url: jdbc:postgresql://dpg-d72u9rc2kvos7384fseg-a.oregon-postgres.render.com:5432/docentesbd_sjzw
+    username: adminuser
+    password: iDmChMLelRZLqMKD7jbjObl6xPMt985m
+
+  http:
+    port: 8860
+    root-path: /kick
+
+    cors: true
+    cors-origins: "*"
+    cors-methods: GET,POST,PUT,DELETE,OPTIONS
+    cors-headers: Content-Type,Authorization
+
+  hibernate-orm:
+    schema-management:
+      strategy: update
+    log:
+      sql: true
+
+  log:
+    level: INFO
+    console:
+      enabled: true
+
+  swagger-ui:
+    always-include: true
+    path: /q/swagger-ui
+
+mp:
+  openapi:
+    extensions:
+      smallrye:
+        info:
+          title: Gestion de docentes
+          version: 1.1.0

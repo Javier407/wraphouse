@@ -1,0 +1,188 @@
+/* AGREGAR al final de motos.component.css */
+
+/* ──── Upload de Foto ──────────────────────────────── */
+.foto-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-input);
+  border: 1px dashed var(--border-mid);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 150ms var(--ease);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.foto-upload-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.foto-upload-btn:hover {
+  background: var(--bg-hover);
+  border-color: rgba(34,197,94,0.3);
+  color: var(--text-primary);
+}
+
+.foto-preview {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--border-mid);
+}
+
+.foto-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foto-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  transition: all 150ms var(--ease);
+  padding: 0;
+}
+
+.foto-remove svg {
+  width: 14px;
+  height: 14px;
+}
+
+.foto-remove:hover {
+  background: rgba(239,68,68,0.9);
+  transform: scale(1.1);
+}
+
+/* ──── Sección de Servicios ──────────────────────────── */
+.servicios-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.section-subtitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.servicios-list {
+  margin-top: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.list-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  letter-spacing: 0.03em;
+}
+
+.servicio-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  transition: all 150ms var(--ease);
+}
+
+.servicio-item:last-child {
+  margin-bottom: 0;
+}
+
+.servicio-item:hover {
+  background: var(--bg-hover);
+}
+
+.servicio-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.servicio-tipo {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--green-400);
+  background: var(--green-glow2);
+  border: 1px solid rgba(34,197,94,0.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.servicio-detalle {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.servicio-remove {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 150ms var(--ease);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.servicio-remove svg {
+  width: 11px;
+  height: 11px;
+}
+
+.servicio-remove:hover {
+  background: var(--red-glow);
+  border-color: rgba(239,68,68,0.3);
+  color: var(--red-500);
+}
+
+/* ──── Responsive ────────────────────────────────────── */
+@media (max-width: 640px) {
+  .foto-preview {
+    width: 160px;
+    height: 160px;
+  }
+
+  .servicio-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

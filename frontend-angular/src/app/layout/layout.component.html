@@ -1,0 +1,14 @@
+<!-- src/app/layout/layout.component.html -->
+
+<app-sidebar
+  [open]="sidebarOpen()"
+  (linkClicked)="closeSidebar()"
+/>
+
+<div class="main-wrapper">
+  <app-topbar (menuToggled)="toggleSidebar()" />
+
+  <main class="page-content">
+    <router-outlet />
+  </main>
+</div>

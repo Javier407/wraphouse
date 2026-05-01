@@ -1,0 +1,287 @@
+<!-- src/app/pages/motos/motos.component.html -->
+
+<!-- ── Header ── -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Motocicletas</h1>
+    <p class="page-subtitle">Gestión completa del parque de motos registradas</p>
+  </div>
+  <button class="btn-primary" (click)="toggleForm()">
+    <svg viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    {{ formOpen() ? 'Cancelar' : 'Registrar Moto' }}
+  </button>
+</div>
+
+<!-- ── Form Panel ── -->
+<div class="form-panel" [ngClass]="{ open: formOpen() }">
+  <div class="form-panel-inner">
+
+    <div class="form-head">
+      <div>
+        <h3 class="form-title">Registro de Motocicleta</h3>
+        <p class="form-sub">Complete los campos para añadir una nueva moto al sistema</p>
+      </div>
+      <button class="btn-close" (click)="toggleForm()">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submitMoto()" novalidate>
+      <div class="form-grid">
+
+        <!-- Placa -->
+        <div class="field required">
+          <label for="placa">Placa</label>
+          <div class="input-wrap">
+            <span class="prefix">
+              <svg viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4 8h8M4 10.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input id="placa" formControlName="placa"
+                   [ngClass]="{ error: isInvalid('placa') }"
+                   placeholder="Ej: ABC123" maxlength="10" autocomplete="off"/>
+          </div>
+          <small class="hint">Identificador único</small>
+          @if (hasError('placa')) { <small class="err-msg">La placa es obligatoria</small> }
+        </div>
+
+        <!-- Marca -->
+        <div class="field required">
+          <label for="marca">Marca</label>
+          <div class="input-wrap">
+            <span class="prefix">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M8 2L9.5 6h4l-3.25 2.5 1.25 4L8 10l-3.5 2.5 1.25-4L2.5 6h4L8 2z"
+                      stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <input id="marca" formControlName="marca"
+                   [ngClass]="{ error: isInvalid('marca') }"
+                   placeholder="Ej: Honda, Yamaha, KTM" autocomplete="off"/>
+          </div>
+          @if (hasError('marca')) { <small class="err-msg">La marca es obligatoria</small> }
+        </div>
+
+        <!-- Modelo -->
+        <div class="field required">
+          <label for="modelo">Modelo</label>
+          <div class="input-wrap">
+            <span class="prefix">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M2 12V6l6-4 6 4v6l-6 4-6-4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <input id="modelo" formControlName="modelo"
+                   [ngClass]="{ error: isInvalid('modelo') }"
+                   placeholder="Ej: CB190R, FZ25" autocomplete="off"/>
+          </div>
+          @if (hasError('modelo')) { <small class="err-msg">El modelo es obligatorio</small> }
+        </div>
+
+        <!-- Color (opcional) -->
+        <div class="field">
+          <label for="color">Color <span class="optional">Opcional</span></label>
+          <div class="input-wrap">
+            <span class="prefix">
+              <svg viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="8" cy="8" r="2" fill="currentColor" opacity=".4"/>
+              </svg>
+            </span>
+            <input id="color" formControlName="color"
+                   placeholder="Ej: Rojo, Negro, Azul" autocomplete="off"/>
+          </div>
+        </div>
+
+        <!-- Cliente -->
+        <div class="field required full">
+          <label for="cliente">Cliente Propietario</label>
+          <div class="input-wrap">
+            <span class="prefix">
+              <svg viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5"
+                      stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input id="cliente" formControlName="cliente"
+                   [ngClass]="{ error: isInvalid('cliente') }"
+                   placeholder="Nombre completo del propietario" autocomplete="off"/>
+          </div>
+          @if (hasError('cliente')) { <small class="err-msg">El cliente es obligatorio</small> }
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-ghost" (click)="clearForm()">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M3 8A5 5 0 1 1 8 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M3 5v3h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Limpiar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="submitting()">
+          <svg viewBox="0 0 16 16" fill="none" [style.animation]="submitting() ? 'spin .8s linear infinite' : 'none'">
+            <path d="M2 8l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ submitting() ? 'Guardando...' : 'Guardar Moto' }}
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- ── Toolbar ── -->
+<div class="toolbar">
+  <div class="search-box">
+    <svg class="search-ico" viewBox="0 0 16 16" fill="none">
+      <circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <input
+      type="text"
+      class="search-inp"
+      placeholder="Buscar por placa, marca, modelo o cliente..."
+      [value]="searchQuery()"
+      (input)="onSearch($event)"
+    />
+    @if (searchQuery()) {
+    <button class="search-clear" (click)="clearSearch()">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    }
+  </div>
+
+  <span class="count-pill">
+    @if (filtered$ | async; as filtered) {
+      @if (motos$ | async; as all) {
+        {{
+          filtered.length === all.length
+            ? filtered.length + (filtered.length === 1 ? ' registro' : ' registros')
+            : filtered.length + ' de ' + all.length + ' registros'
+        }}
+      }
+    }
+  </span>
+</div>
+
+<!-- ── Table ── -->
+<div class="section-card">
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th (click)="sort('id')">
+          ID <span class="sort-icon" [ngClass]="sortCls('id')">{{ sortIcon('id') }}</span>
+        </th>
+        <th (click)="sort('placa')">
+          Placa <span class="sort-icon" [ngClass]="sortCls('placa')">{{ sortIcon('placa') }}</span>
+        </th>
+        <th (click)="sort('marca')">
+          Marca <span class="sort-icon" [ngClass]="sortCls('marca')">{{ sortIcon('marca') }}</span>
+        </th>
+        <th (click)="sort('modelo')">
+          Modelo <span class="sort-icon" [ngClass]="sortCls('modelo')">{{ sortIcon('modelo') }}</span>
+        </th>
+        <th class="no-sort">Color</th>
+        <th (click)="sort('cliente')">
+          Cliente <span class="sort-icon" [ngClass]="sortCls('cliente')">{{ sortIcon('cliente') }}</span>
+        </th>
+        <th class="no-sort">Registro</th>
+        <th class="no-sort col-actions">Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      @if (loading$ | async) {
+      <tr>
+        <td colspan="8" class="table-state-cell">
+          <div class="loading-state">
+            <div class="spinner"></div> Cargando datos del servidor...
+          </div>
+        </td>
+      </tr>
+      } @else if (error$ | async) {
+      <tr>
+        <td colspan="8" class="table-state-cell">
+          <div class="empty-state">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M20 12v9M20 25v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p>{{ error$ | async }}</p>
+          </div>
+        </td>
+      </tr>
+      } @else if ((filtered$ | async)?.length === 0) {
+      <tr>
+        <td colspan="8" class="table-state-cell">
+          <div class="empty-state">
+            <svg viewBox="0 0 40 40" fill="none">
+              <rect x="6" y="10" width="28" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 18h14M13 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p>
+              @if (searchQuery()) {
+              <strong>Sin resultados</strong><br>
+              No se encontraron motos con ese criterio.
+              } @else {
+              <strong>Sin datos</strong><br>
+              No hay motos registradas. ¡Agrega la primera!
+              }
+            </p>
+          </div>
+        </td>
+      </tr>
+      } @else {
+      @for (moto of filtered$ | async; track moto.id; let i = $index) {
+      <tr [style.animation-delay.ms]="i * 25">
+        <td><span class="cell-id">#{{ moto.id }}</span></td>
+        <td><span class="placa-badge">{{ moto.placa }}</span></td>
+        <td>{{ moto.marca }}</td>
+        <td>{{ moto.modelo }}</td>
+        <td>
+                <span class="color-cell">
+                  <span class="color-dot" [style.background]="moto.color | colorHash"></span>
+                  {{ moto.color || '—' }}
+                </span>
+        </td>
+        <td>{{ moto.cliente }}</td>
+        <td><span class="date-cell">{{ moto.fechaRegistro | formatDate }}</span></td>
+        <td>
+          <div class="row-actions">
+            <button class="act-btn view" title="Ver detalle" (click)="openModal(moto)">
+              <svg viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M1 7c1.5-3.5 9.5-3.5 11 0-1.5 3.5-9.5 3.5-11 0z"
+                      stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </button>
+            <button class="act-btn del" title="Eliminar" (click)="confirmDelete(moto.id, moto.placa)">
+              <svg viewBox="0 0 14 14" fill="none">
+                <path d="M2 3.5h10M5.5 3.5V2.5h3v1M6 6v4M8 6v4M3 3.5l.7 7.5h6.6L11 3.5"
+                      stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+      }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── Modal ── -->
+<app-moto-modal [moto]="selectedMoto()" (closed)="closeModal()" />

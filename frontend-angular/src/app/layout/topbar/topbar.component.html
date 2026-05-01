@@ -1,0 +1,54 @@
+<!-- src/app/layout/topbar/topbar.component.html -->
+
+<header class="topbar">
+
+  <div class="topbar-left">
+    <!-- Mobile hamburger -->
+    <button class="hamburger" (click)="menuToggled.emit()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <span>Panel</span>
+      <span class="sep">›</span>
+      <span class="current">MotoTrack CRM</span>
+    </nav>
+  </div>
+
+  <div class="topbar-right">
+
+    <!-- API status pill -->
+    <div class="api-pill" [ngClass]="(apiStatus$ | async) ?? 'connecting'">
+      <span class="dot"></span>
+      <span class="status-label">
+        @switch (apiStatus$ | async) {
+          @case ('online')  { API Conectada  }
+          @case ('offline') { Sin Conexión   }
+          @default          { Conectando...  }
+        }
+      </span>
+    </div>
+
+    <!-- Refresh button -->
+    <button
+      class="btn-icon"
+      [ngClass]="{ spin: spinning() }"
+      (click)="refresh()"
+      title="Refrescar datos"
+    >
+      <svg viewBox="0 0 20 20" fill="none">
+        <path d="M4 10a6 6 0 0 1 10.83-3.5M16 10a6 6 0 0 1-10.83 3.5"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14.5 6.5L15 10h-3.5"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 13.5L5 10h3.5"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Date -->
+    <span class="date-label">{{ dateStr() }}</span>
+
+  </div>
+</header>

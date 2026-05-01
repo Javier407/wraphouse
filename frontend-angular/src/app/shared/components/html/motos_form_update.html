@@ -1,0 +1,101 @@
+<!-- FRAGMENTO DE ACTUALIZACIÓN para motos.component.html -->
+<!-- Agregar DESPUÉS del campo "cliente" en el formulario -->
+
+        <!-- Cliente (ya existente) -->
+        <div class="field required full">
+          <label for="cliente">Cliente Propietario</label>
+          <div class="input-wrap">
+            <span class="prefix">...</span>
+            <input id="cliente" formControlName="cliente" .../>
+          </div>
+          @if (hasError('cliente')) { <small class="err-msg">El cliente es obligatorio</small> }
+        </div>
+
+        <!-- ⭐ NUEVO: Upload de foto -->
+        <div class="field full">
+          <label for="foto">Foto de la Moto <span class="optional">Opcional</span></label>
+          
+          @if (!fotoPreview()) {
+            <label for="foto-input" class="foto-upload-btn">
+              <svg viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M6 4L7 2h6l1 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              Subir Foto
+            </label>
+            <input 
+              type="file" 
+              id="foto-input" 
+              accept="image/*"
+              (change)="onFotoSelected($event)"
+              style="display: none"
+            />
+          } @else {
+            <div class="foto-preview">
+              <img [src]="fotoPreview()" alt="Preview" />
+              <button type="button" class="foto-remove" (click)="removeFoto()">
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          }
+        </div>
+
+      </div> <!-- cierre de form-grid existente -->
+
+      <!-- ⭐ NUEVO: Sección de servicios -->
+      <div class="servicios-section">
+        <h4 class="section-subtitle">Servicios Realizados</h4>
+        
+        <!-- Formulario dinámico de servicios -->
+        <app-servicio-form (servicioAdded)="onServicioAdded($event)" />
+
+        <!-- Lista de servicios agregados temporalmente -->
+        @if (serviciosTemp().length > 0) {
+          <div class="servicios-list">
+            <h5 class="list-title">Servicios a guardar ({{ serviciosTemp().length }})</h5>
+            @for (servicio of serviciosTemp(); track trackByIndex($index)) {
+              <div class="servicio-item">
+                <div class="servicio-info">
+                  <span class="servicio-tipo">{{ servicio.tipoServicio }}</span>
+                  @if (servicio.diseno) {
+                    <span class="servicio-detalle">{{ servicio.diseno.tipoDiseno }}</span>
+                  }
+                  @if (servicio.ppf) {
+                    <span class="servicio-detalle">PPF Kit {{ servicio.ppf.kit }}</span>
+                  }
+                  @if (servicio.detailing) {
+                    <span class="servicio-detalle">Detailing {{ servicio.detailing.tipo }}</span>
+                  }
+                  @if (servicio.protector) {
+                    <span class="servicio-detalle">Protector {{ servicio.protector.acabado }}</span>
+                  }
+                </div>
+                <button 
+                  type="button" 
+                  class="servicio-remove"
+                  (click)="removeServicio($index)"
+                  title="Eliminar"
+                >
+                  <svg viewBox="0 0 16 16" fill="none">
+                    <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Botones del formulario (ya existentes) -->
+      <div class="form-actions">
+        <button type="button" class="btn-ghost" (click)="clearForm()">...</button>
+        <button type="submit" class="btn-primary" [disabled]="submitting()">...</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

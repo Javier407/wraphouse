@@ -1,0 +1,211 @@
+<!-- src/app/pages/motos/components/servicio-form/servicio-form.component.html -->
+
+<div class="servicio-form-card">
+  <h3 class="form-title">Agregar Servicio Realizado</h3>
+
+  <form [formGroup]="form" (ngSubmit)="agregarServicio()">
+    
+    <!-- Selector de tipo de servicio -->
+    <div class="field required">
+      <label for="tipoServicio">Tipo de Servicio</label>
+      <select 
+        id="tipoServicio" 
+        formControlName="tipoServicio"
+        (change)="onTipoChange()"
+        class="select-input"
+      >
+        <option value="">Seleccione...</option>
+        <option [value]="TipoServicio.DISENO">Diseño</option>
+        <option [value]="TipoServicio.PPF">PPF (Paint Protection Film)</option>
+        <option [value]="TipoServicio.PROTECTOR">Protector</option>
+        <option [value]="TipoServicio.DETAILING">Detailing / Polichado</option>
+      </select>
+    </div>
+
+    <!-- Campos específicos para DISEÑO -->
+    @if (tipoSeleccionado() === TipoServicio.DISENO) {
+      <div class="campos-especificos">
+        <div class="field">
+          <label for="tipoDiseno">Tipo de Diseño</label>
+          <input 
+            id="tipoDiseno" 
+            formControlName="tipoDiseno"
+            placeholder="Ej: Tribal, Llamas, Geométrico"
+          />
+        </div>
+
+        <div class="field">
+          <label for="nombreReferencia">Nombre / Referencia</label>
+          <input 
+            id="nombreReferencia" 
+            formControlName="nombreReferencia"
+            placeholder="Ej: Monster Energy, Red Bull Racing"
+          />
+        </div>
+
+        <div class="field-checkbox">
+          <input 
+            type="checkbox" 
+            id="personalizado" 
+            formControlName="personalizado"
+          />
+          <label for="personalizado">Diseño Personalizado</label>
+        </div>
+
+        <div class="field full">
+          <label>Partes Trabajadas</label>
+          <div class="partes-grid">
+            @for (parte of partesDisponibles; track parte) {
+              <button
+                type="button"
+                class="parte-chip"
+                [class.selected]="isParteSelected('partesDiseno', parte)"
+                (click)="toggleParte('partesDiseno', parte)"
+              >
+                {{ parte }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Campos específicos para PPF -->
+    @if (tipoSeleccionado() === TipoServicio.PPF) {
+      <div class="campos-especificos">
+        <div class="field required">
+          <label>Acabado</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" formControlName="acabadoPPF" value="mate" />
+              <span>Mate</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="acabadoPPF" value="brillante" />
+              <span>Brillante</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field required">
+          <label>Kit</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" formControlName="kit" [value]="1" />
+              <span>Kit 1</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="kit" [value]="2" />
+              <span>Kit 2</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="kit" [value]="3" />
+              <span>Kit 3</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>Partes Protegidas</label>
+          <div class="partes-grid">
+            @for (parte of partesDisponibles; track parte) {
+              <button
+                type="button"
+                class="parte-chip"
+                [class.selected]="isParteSelected('partesPPF', parte)"
+                (click)="toggleParte('partesPPF', parte)"
+              >
+                {{ parte }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Campos específicos para DETAILING -->
+    @if (tipoSeleccionado() === TipoServicio.DETAILING) {
+      <div class="campos-especificos">
+        <div class="field required">
+          <label>Tipo de Detailing</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" formControlName="tipoDetailing" value="general" />
+              <span>General (toda la moto)</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="tipoDetailing" value="parcial" />
+              <span>Parcial (por partes)</span>
+            </label>
+          </div>
+        </div>
+
+        @if (form.value.tipoDetailing === 'parcial') {
+          <div class="field full">
+            <label>Partes Trabajadas</label>
+            <div class="partes-grid">
+              @for (parte of partesDisponibles; track parte) {
+                <button
+                  type="button"
+                  class="parte-chip"
+                  [class.selected]="isParteSelected('partesDetailing', parte)"
+                  (click)="toggleParte('partesDetailing', parte)"
+                >
+                  {{ parte }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Campos específicos para PROTECTOR -->
+    @if (tipoSeleccionado() === TipoServicio.PROTECTOR) {
+      <div class="campos-especificos">
+        <div class="field required">
+          <label>Acabado</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" formControlName="acabadoProtector" value="mate" />
+              <span>Mate</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="acabadoProtector" value="brillante" />
+              <span>Brillante</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>Partes Protegidas</label>
+          <div class="partes-grid">
+            @for (parte of partesDisponibles; track parte) {
+              <button
+                type="button"
+                class="parte-chip"
+                [class.selected]="isParteSelected('partesProtector', parte)"
+                (click)="toggleParte('partesProtector', parte)"
+              >
+                {{ parte }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Botón de agregar -->
+    @if (tipoSeleccionado()) {
+      <div class="form-actions">
+        <button type="submit" class="btn-add-servicio">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Agregar Servicio
+        </button>
+      </div>
+    }
+
+  </form>
+</div>
