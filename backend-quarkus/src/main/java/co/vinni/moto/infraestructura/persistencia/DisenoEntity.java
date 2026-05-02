@@ -1,7 +1,7 @@
-// src/main/java/co/vinni/motos/repositorio/entity/DisenoEntity.java
+package co.vinni.moto.infraestructura.persistencia;
 
-package co.vinni.moto.dominio.repositorio;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "diseno")
@@ -27,9 +27,8 @@ public class DisenoEntity {
     @ElementCollection
     @CollectionTable(name = "diseno_partes", joinColumns = @JoinColumn(name = "diseno_id"))
     @Column(name = "parte")
-    private java.util.List<String> partes;
+    private List<String> partes;
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -45,6 +44,6 @@ public class DisenoEntity {
     public Boolean getPersonalizado() { return personalizado; }
     public void setPersonalizado(Boolean personalizado) { this.personalizado = personalizado; }
 
-    public java.util.List<String> getPartes() { return partes; }
-    public void setPartes(java.util.List<String> partes) { this.partes = partes; }
+    public List<String> getPartes() { return partes; }
+    public void setPartes(List<String> partes) { this.partes = partes; }
 }

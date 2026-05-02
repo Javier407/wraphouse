@@ -1,60 +1,58 @@
-// src/main/java/co/vinni/motos/infraestructura/rest/ServicioRecursos.java
-
 package co.vinni.moto.infraestructura.rest;
 
+import co.vinni.common.infraestructure.ResponseApi;
 import co.vinni.moto.aplicacion.ServicioServicio;
 import co.vinni.moto.dominio.modelo.Servicio;
 import co.vinni.moto.infraestructura.dto.ServicioDto;
+import co.vinni.moto.infraestructura.dto.ServicioMapper;
 import co.vinni.moto.infraestructura.dto.ServicioRespuestaDto;
-import co.vinni.moto.infraestructura.ServicioMapper;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import org.jboss.logging.Logger;
+
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/**
- * Endpoints REST para gestión de servicios.
- */
 @Path("/servicios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ServicioRecursos {
 
+    private static final Logger LOG = Logger.getLogger(ServicioRecursos.class);
+
     @Inject
     ServicioServicio servicioServicio;
 
-    /**
-     * POST /kick/servicios
-     * Registrar un nuevo servicio para una moto.
-     */
+    @Context
+    UriInfo uriInfo;
+
     @POST
-    public Response registrar(ServicioDto dto) {
+    public Response registrar(@Valid ServicioDto dto) {
         Servicio modelo = ServicioMapper.dtoAModelo(dto);
         Servicio guardado = servicioServicio.registrarServicio(modelo);
         ServicioRespuestaDto respuesta = ServicioMapper.modeloADto(guardado);
-        
-        return Response
-            .created(URI.create("/servicios/" + guardado.id()))
-            .entity(respuesta)
-            .build();
+
+        LOG.infof("POST /servicios — registrado id=%d tipo=%s motoId=%d",
+                guardado.id(), guardado.tipoServicio(), guardado.motoId());
+
+        URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(guardado.id())).build();
+        return Response.created(location)
+                .entity(ResponseApi.exito(respuesta, "Servicio registrado exitosamente", 201))
+                .build();
     }
 
-    /**
-     * GET /kick/motos/{motoId}/servicios
-     * Listar todos los servicios de una moto específica.
-     */
     @GET
     @Path("/moto/{motoId}")
     public Response listarPorMoto(@PathParam("motoId") Long motoId) {
-        List<Servicio> servicios = servicioServicio.listarServiciosDeMoto(motoId);
-        
-        List<ServicioRespuestaDto> respuesta = servicios.stream()
-            .map(ServicioMapper::modeloADto)
-            .collect(Collectors.toList());
-        
-        return Response.ok(respuesta).build();
+        List<ServicioRespuestaDto> respuesta = servicioServicio.listarServiciosDeMoto(motoId)
+                .stream()
+                .map(ServicioMapper::modeloADto)
+                .toList();
+        return Response.ok(ResponseApi.exito(respuesta, "OK")).build();
     }
 }

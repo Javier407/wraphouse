@@ -1,8 +1,7 @@
-// src/main/java/co/vinni/motos/repositorio/entity/DetailingEntity.java
-
-package co.vinni.moto.dominio.repositorio;
+package co.vinni.moto.infraestructura.persistencia;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "detailing")
@@ -22,9 +21,8 @@ public class DetailingEntity {
     @ElementCollection
     @CollectionTable(name = "detailing_partes", joinColumns = @JoinColumn(name = "detailing_id"))
     @Column(name = "parte")
-    private java.util.List<String> partes;
+    private List<String> partes;
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -34,6 +32,6 @@ public class DetailingEntity {
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
 
-    public java.util.List<String> getPartes() { return partes; }
-    public void setPartes(java.util.List<String> partes) { this.partes = partes; }
+    public List<String> getPartes() { return partes; }
+    public void setPartes(List<String> partes) { this.partes = partes; }
 }

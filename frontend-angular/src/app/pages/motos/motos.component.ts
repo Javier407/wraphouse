@@ -6,8 +6,6 @@ import {
 } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-
 import { MotoService } from '../../core/services/moto.service';
 import { ToastService } from '../../core/services/toast.service';
 import { Moto, MotoCreateDto } from '../../core/models/moto.model';
@@ -92,10 +90,8 @@ export class MotosComponent implements OnInit {
         this.toggleForm();
         this.submitting.set(false);
       },
-      error: (err: HttpErrorResponse) => {
-        const body = err.error;
-        const msg  = body?.detalle ?? body?.mensaje ?? body?.error ?? 'Error desconocido del servidor';
-        this.toastSvc.error('No se pudo guardar', msg);
+      error: () => {
+        // El interceptor api.interceptor.ts ya muestra el toast de error
         this.submitting.set(false);
       },
     });
@@ -134,12 +130,14 @@ export class MotosComponent implements OnInit {
   @HostListener('document:keydown.escape')
   onEsc(): void { this.closeModal(); }
 
-  /* ── Delete placeholder ── */
+  /* ── Delete ── */
   confirmDelete(id: number, placa: string): void {
-    this.toastSvc.info(
-      'Función no disponible',
-      `El endpoint DELETE /motos/${id} (${placa}) aún no está implementado.`
-    );
+    if (!confirm(`¿Eliminar la moto ${placa}? Esta acción no se puede deshacer.`)) return;
+
+    this.motoSvc.deleteMoto(id).subscribe({
+      next: () => this.toastSvc.success('Moto eliminada', `La moto ${placa} fue eliminada del sistema.`),
+      error: () => {} // el interceptor ya mostró el toast de error
+    });
   }
 
   /* ── Helpers ── */
