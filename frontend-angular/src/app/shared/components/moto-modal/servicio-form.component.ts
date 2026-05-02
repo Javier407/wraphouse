@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   TipoServicio, ServicioCreateDto, PARTES_DISPONIBLES
-} from 'src/app/core/models/servicio.model';
+} from '../../../core/models/servicio.model';
 
 @Component({
   selector: 'app-servicio-form',
