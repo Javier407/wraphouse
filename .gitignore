@@ -8,18 +8,37 @@ target/
 *.class
 *.jar
 *.war
+*.log
+
+# Logs
+**/logs/
+*.log
 
 # IDE
 .idea/
 *.iml
 .vscode/
 .settings/
+*.swp
+*~
 
 # Angular / Node
 node_modules/
 dist/
 .angular/
 
+# Claude / AI tooling
+.claude/
+
+# Worktrees / clones anidados
+wraphouse/
+
+# Archivos binarios / documentos pesados
+*.docx
+*.xlsx
+*.pptx
+
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
