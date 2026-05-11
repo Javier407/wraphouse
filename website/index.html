@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wrap House Design — Diseños premium y protección PPF para motos deportivas en Bogotá. Personalización exclusiva, vinilo, corrección de rayones.">
+  <title>Wrap House Design — Personalización Premium de Motos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --black:        #050505;
+      --carbon:       #111111;
+      --carbon-2:     #181818;
+      --green:        #55ff66;
+      --green-dim:    rgba(85,255,102,.12);
+      --green-glow:   0 0 40px rgba(85,255,102,.45);
+      --white:        #f5f5f5;
+      --white-10:     rgba(245,245,245,.10);
+      --white-06:     rgba(245,245,245,.06);
+      --white-04:     rgba(245,245,245,.04);
+      --ease:         cubic-bezier(.25,.46,.45,.94);
+      --ease-out:     cubic-bezier(.16,1,.3,1);
+      --display:      'Bebas Neue', sans-serif;
+      --body:         'Space Grotesk', sans-serif;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior:smooth; font-size:16px; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    img { display:block; max-width:100%; }
+    a   { text-decoration:none; color:inherit; }
+
+    ::-webkit-scrollbar        { width:3px; }
+    ::-webkit-scrollbar-track  { background:var(--carbon); }
+    ::-webkit-scrollbar-thumb  { background:var(--green); border-radius:10px; }
+
+    /* ============================================================
+       CUSTOM CURSOR
+    ============================================================ */
+    #cursor {
+      width:10px; height:10px;
+      background:var(--green);
+      border-radius:50%;
+      position:fixed; top:0; left:0;
+      pointer-events:none; z-index:9999;
+      transform:translate(-50%,-50%);
+      transition:transform .15s, width .3s var(--ease), height .3s var(--ease);
+      mix-blend-mode:exclusion;
+    }
+    #cursor-ring {
+      width:34px; height:34px;
+      border:1px solid rgba(85,255,102,.45);
+      border-radius:50%;
+      position:fixed; top:0; left:0;
+      pointer-events:none; z-index:9998;
+      transform:translate(-50%,-50%);
+      transition:transform .18s var(--ease), width .3s, height .3s, border-color .3s;
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .container { max-width:1280px; margin:0 auto; padding:0 28px; }
+
+    .tag {
+      display:inline-flex; align-items:center; gap:12px;
+      font-size:11px; font-weight:600; letter-spacing:4px;
+      text-transform:uppercase; color:var(--green);
+      margin-bottom:20px;
+    }
+    .tag::before { content:''; width:30px; height:1px; background:var(--green); }
+
+    .reveal {
+      opacity:0;
+      transform:translateY(36px);
+      transition:opacity .85s var(--ease-out), transform .85s var(--ease-out);
+    }
+    .reveal.on { opacity:1; transform:translateY(0); }
+    .d1 { transition-delay:.10s; }
+    .d2 { transition-delay:.20s; }
+    .d3 { transition-delay:.30s; }
+    .d4 { transition-delay:.42s; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      padding:22px 0;
+      transition:all .4s var(--ease);
+    }
+    .nav.solid {
+      background:rgba(5,5,5,.88);
+      backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      padding:14px 0;
+      border-bottom:1px solid rgba(85,255,102,.08);
+    }
+    .nav-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      max-width:1280px; margin:0 auto; padding:0 28px;
+    }
+    .logo {
+      display:flex; align-items:center; gap:10px;
+      font-family:var(--display); font-size:22px; letter-spacing:3px;
+    }
+    .logo-box {
+      width:34px; height:34px; border-radius:6px;
+      background:var(--green); display:flex; align-items:center;
+      justify-content:center; color:var(--black);
+      font-size:17px; font-weight:900;
+    }
+    .logo em { color:var(--green); font-style:normal; }
+
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a {
+      font-size:11px; font-weight:500; letter-spacing:2px;
+      text-transform:uppercase; color:rgba(245,245,245,.55);
+      transition:color .3s; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-4px; left:0;
+      width:0; height:1px; background:var(--green);
+      transition:width .3s var(--ease);
+    }
+    .nav-links a:hover { color:var(--white); }
+    .nav-links a:hover::after { width:100%; }
+
+    .btn-nav {
+      background:var(--green); color:var(--black) !important;
+      padding:10px 22px !important; border-radius:4px;
+      font-weight:700 !important; letter-spacing:1px !important;
+      transition:all .3s !important;
+    }
+    .btn-nav:hover {
+      background:#44ee55 !important;
+      box-shadow:var(--green-glow);
+      transform:translateY(-2px);
+    }
+    .btn-nav::after { display:none !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display:none; flex-direction:column; gap:5px;
+      cursor:pointer; padding:4px; background:none; border:none;
+    }
+    .hamburger span {
+      display:block; width:24px; height:2px;
+      background:var(--white); border-radius:2px; transition:all .3s;
+    }
+
+    /* Mobile menu */
+    .mobile-overlay {
+      display:none; position:fixed; inset:0; background:var(--black);
+      z-index:999; flex-direction:column; align-items:center;
+      justify-content:center; gap:28px;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .mobile-overlay.open { opacity:1; pointer-events:all; }
+    .mobile-overlay a {
+      font-family:var(--display); font-size:44px; letter-spacing:4px;
+      color:rgba(245,245,245,.45); transition:color .3s;
+    }
+    .mobile-overlay a:hover { color:var(--green); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position:relative; height:100vh; min-height:680px;
+      overflow:hidden; display:flex; align-items:flex-end;
+    }
+
+    /* Slideshow */
+    .slides { position:absolute; inset:0; }
+    .slide {
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      opacity:0; transform:scale(1.06);
+      transition:opacity 1.4s var(--ease), transform 9s linear;
+    }
+    .slide.active { opacity:1; transform:scale(1); }
+    .slide:nth-child(1) { background-image:url('images/hero1.png'); }
+    .slide:nth-child(2) { background-image:url('images/hero2.png'); }
+    .slide:nth-child(3) { background-image:url('images/hero3.png'); }
+    .slide:nth-child(4) { background-image:url('images/hero4.png'); }
+    .slide:nth-child(5) { background-image:url('images/hero5.png'); }
+
+    .hero-ov {
+      position:absolute; inset:0;
+      background:linear-gradient(
+        100deg,
+        rgba(5,5,5,.94) 0%,
+        rgba(5,5,5,.62) 55%,
+        rgba(5,5,5,.25) 100%
+      );
+    }
+    .hero-ov-bottom {
+      position:absolute; bottom:0; left:0; right:0; height:220px;
+      background:linear-gradient(to top, var(--black), transparent);
+    }
+
+    .hero-content {
+      position:relative; z-index:2;
+      max-width:1280px; margin:0 auto;
+      padding:0 28px 88px; width:100%;
+    }
+
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:12px;
+      font-size:11px; font-weight:600; letter-spacing:5px;
+      text-transform:uppercase; color:var(--green);
+      margin-bottom:22px;
+      opacity:0; animation:fadeUp .8s var(--ease-out) .4s forwards;
+    }
+    .hero-eyebrow::before { content:''; width:36px; height:1px; background:var(--green); }
+
+    .hero-h1 {
+      font-family:var(--display);
+      font-size:clamp(68px, 11.5vw, 155px);
+      line-height:.92; letter-spacing:-1px;
+      margin-bottom:26px;
+    }
+    .h1-line { display:block; overflow:hidden; }
+    .h1-word {
+      display:block;
+      opacity:0; transform:translateY(105%);
+      animation:slideUp .95s var(--ease-out) forwards;
+    }
+    .h1-word:nth-child(1) { animation-delay:.55s; }
+    .h1-word:nth-child(2) { animation-delay:.75s; }
+    .h1-word:nth-child(3) { animation-delay:.95s; color:var(--green); }
+
+    .hero-sub {
+      font-size:15px; font-weight:400;
+      color:rgba(245,245,245,.6); max-width:430px;
+      line-height:1.65; margin-bottom:44px;
+      opacity:0; animation:fadeUp .8s var(--ease-out) 1.15s forwards;
+    }
+
+    .hero-btns {
+      display:flex; gap:14px; flex-wrap:wrap;
+      opacity:0; animation:fadeUp .8s var(--ease-out) 1.35s forwards;
+    }
+
+    /* Slide indicators */
+    .indicators {
+      position:absolute; bottom:86px; right:36px;
+      display:flex; flex-direction:column; gap:8px; z-index:3;
+    }
+    .dot {
+      width:2px; height:22px; border-radius:2px;
+      background:rgba(245,245,245,.18); cursor:pointer;
+      transition:background .3s, height .35s var(--ease);
+    }
+    .dot.active { background:var(--green); height:46px; box-shadow:0 0 10px var(--green); }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position:absolute; bottom:30px; left:50%;
+      transform:translateX(-50%); z-index:3;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      opacity:0; animation:fadeIn 1s var(--ease) 2.2s forwards;
+    }
+    .scroll-hint span {
+      font-size:9px; letter-spacing:3px; text-transform:uppercase;
+      color:rgba(245,245,245,.3);
+    }
+    .scroll-line {
+      width:1px; height:44px;
+      background:rgba(245,245,245,.15); position:relative; overflow:hidden;
+    }
+    .scroll-line::after {
+      content:''; position:absolute; top:-100%; left:0;
+      width:100%; height:100%; background:var(--green);
+      animation:scrollDrop 1.6s ease-in-out infinite;
+    }
+
+    /* ============================================================
+       BUTTONS (reusable)
+    ============================================================ */
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--green); color:var(--black);
+      font-family:var(--body); font-size:13px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase;
+      padding:16px 32px; border-radius:4px; border:none;
+      cursor:pointer; transition:all .35s var(--ease);
+    }
+    .btn-primary:hover {
+      background:#44ee55;
+      box-shadow:0 10px 44px rgba(85,255,102,.5);
+      transform:translateY(-3px);
+    }
+    .btn-secondary {
+      display:inline-flex; align-items:center; gap:10px;
+      background:transparent; color:var(--white);
+      font-family:var(--body); font-size:13px; font-weight:600;
+      letter-spacing:1.5px; text-transform:uppercase;
+      padding:15px 32px; border-radius:4px;
+      border:1px solid rgba(245,245,245,.22); cursor:pointer;
+      transition:all .35s var(--ease);
+    }
+    .btn-secondary:hover {
+      border-color:var(--green); color:var(--green);
+      transform:translateY(-3px);
+    }
+
+    /* WhatsApp icon helper */
+    .ico-wa { flex-shrink:0; }
+
+    /* ============================================================
+       STATS BAR
+    ============================================================ */
+    .stats-bar {
+      background:var(--carbon);
+      border-top:1px solid rgba(85,255,102,.08);
+      border-bottom:1px solid rgba(85,255,102,.08);
+      padding:36px 0;
+    }
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    }
+    .stat {
+      padding:10px 32px;
+      border-right:1px solid var(--white-06);
+    }
+    .stat:last-child { border-right:none; }
+    .stat-n {
+      font-family:var(--display); font-size:52px;
+      color:var(--green); line-height:1; margin-bottom:4px;
+    }
+    .stat-l {
+      font-size:11px; letter-spacing:2px; text-transform:uppercase;
+      color:rgba(245,245,245,.38);
+    }
+
+    /* ============================================================
+       SECTION: CAROUSEL
+    ============================================================ */
+    .sec-carousel { padding:120px 0; overflow:hidden; }
+
+    .sec-header { padding-bottom:60px; }
+    .sec-title {
+      font-family:var(--display);
+      font-size:clamp(44px,7vw,92px);
+      line-height:1; letter-spacing:-1px;
+    }
+    .sec-sub {
+      font-size:15px; color:rgba(245,245,245,.48);
+      margin-top:14px; max-width:460px; line-height:1.65;
+    }
+
+    .track {
+      display:flex; gap:20px; padding:16px 28px;
+      overflow-x:auto; scrollbar-width:none; cursor:grab;
+      scroll-snap-type:x mandatory;
+    }
+    .track::-webkit-scrollbar { display:none; }
+    .track.grab { cursor:grabbing; }
+
+    .card {
+      flex:0 0 370px; height:470px; border-radius:14px;
+      overflow:hidden; position:relative;
+      scroll-snap-align:start;
+      transition:transform .45s var(--ease);
+    }
+    .card:hover { transform:translateY(-10px); }
+
+    .card-img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .65s var(--ease);
+    }
+    .card:hover .card-img { transform:scale(1.06); }
+
+    .card-ov {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(5,5,5,.96) 0%, rgba(5,5,5,.18) 55%, transparent 100%);
+    }
+    .card-border {
+      position:absolute; inset:0; border-radius:14px;
+      border:1px solid rgba(85,255,102,0);
+      transition:border-color .4s, box-shadow .4s;
+    }
+    .card:hover .card-border {
+      border-color:rgba(85,255,102,.38);
+      box-shadow:inset 0 0 60px rgba(85,255,102,.04), 0 0 44px rgba(85,255,102,.14);
+    }
+    .card-body {
+      position:absolute; bottom:0; left:0; right:0; padding:28px;
+    }
+    .card-tag {
+      font-size:10px; letter-spacing:3px; text-transform:uppercase;
+      color:var(--green); margin-bottom:7px;
+    }
+    .card-name {
+      font-family:var(--display); font-size:30px;
+      letter-spacing:1px; margin-bottom:10px;
+    }
+    .card-desc {
+      font-size:13px; color:rgba(245,245,245,.48); line-height:1.5;
+    }
+
+    /* ============================================================
+       SECTION: PROBLEM
+    ============================================================ */
+    .sec-problem { padding:120px 0; }
+    .problem-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .prob-img-wrap {
+      position:relative; border-radius:14px;
+      overflow:hidden; aspect-ratio:4/3;
+    }
+    .prob-img {
+      width:100%; height:100%; object-fit:cover;
+      filter:contrast(1.1) saturate(.75);
+    }
+    .prob-img-ov {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(5,5,5,.3), transparent);
+    }
+    .prob-badge {
+      position:absolute; top:22px; left:22px;
+      background:rgba(255,60,60,.14);
+      border:1px solid rgba(255,90,90,.32);
+      color:#ff7070; padding:8px 16px; border-radius:100px;
+      font-size:10px; font-weight:600; letter-spacing:2px;
+      text-transform:uppercase; backdrop-filter:blur(10px);
+    }
+    .prob-title {
+      font-family:var(--display);
+      font-size:clamp(38px,4.5vw,60px);
+      line-height:1.04; margin-bottom:26px;
+    }
+    .prob-title .hl { color:var(--green); }
+    .prob-text {
+      font-size:15px; color:rgba(245,245,245,.58);
+      line-height:1.75; margin-bottom:38px;
+    }
+    .prob-list { list-style:none; display:flex; flex-direction:column; gap:14px; }
+    .prob-item {
+      display:flex; align-items:center; gap:14px;
+      font-size:14px; color:rgba(245,245,245,.65);
+    }
+    .prob-icon {
+      width:34px; height:34px; border-radius:50%; flex-shrink:0;
+      background:rgba(255,60,60,.1);
+      border:1px solid rgba(255,60,60,.25);
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* ============================================================
+       SECTION: PPF
+    ============================================================ */
+    .sec-ppf { padding:120px 0; background:var(--carbon); }
+    .ppf-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .ppf-title {
+      font-family:var(--display);
+      font-size:clamp(44px,5.5vw,76px);
+      line-height:1; margin-bottom:24px;
+    }
+    .ppf-title .gn { color:var(--green); }
+    .ppf-text {
+      font-size:15px; color:rgba(245,245,245,.58);
+      line-height:1.75; margin-bottom:38px;
+    }
+    .ppf-feats {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:16px; margin-bottom:44px;
+    }
+    .ppf-feat {
+      background:var(--white-06);
+      border:1px solid rgba(85,255,102,.09);
+      border-radius:10px; padding:20px;
+      transition:all .35s;
+    }
+    .ppf-feat:hover {
+      border-color:rgba(85,255,102,.28);
+      background:rgba(85,255,102,.05);
+    }
+    .ppf-feat-icon { font-size:22px; margin-bottom:10px; }
+    .ppf-feat-title {
+      font-size:12px; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; color:var(--green); margin-bottom:6px;
+    }
+    .ppf-feat-text { font-size:12px; color:rgba(245,245,245,.46); line-height:1.5; }
+
+    .ppf-img-wrap {
+      position:relative; border-radius:14px;
+      overflow:hidden; aspect-ratio:3/4;
+    }
+    .ppf-img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .65s var(--ease);
+    }
+    .ppf-img-wrap:hover .ppf-img { transform:scale(1.04); }
+    .ppf-badge {
+      position:absolute; bottom:22px; right:22px;
+      background:rgba(5,5,5,.7);
+      border:1px solid rgba(85,255,102,.38);
+      backdrop-filter:blur(14px);
+      border-radius:10px; padding:16px 20px;
+    }
+    .ppf-badge-label {
+      font-size:10px; letter-spacing:2px;
+      color:rgba(245,245,245,.45); text-transform:uppercase; margin-bottom:4px;
+    }
+    .ppf-badge-val {
+      font-family:var(--display); font-size:28px; color:var(--green);
+    }
+
+    /* ============================================================
+       SECTION: BEFORE / AFTER
+    ============================================================ */
+    .sec-ba { padding:120px 0; }
+    .ba-wrap {
+      max-width:880px; margin:60px auto 0; padding:0 28px;
+    }
+    .slider-box {
+      position:relative; border-radius:16px;
+      overflow:hidden; aspect-ratio:16/9;
+      user-select:none;
+      box-shadow:0 40px 100px rgba(0,0,0,.75);
+    }
+    .sl-after, .sl-before { position:absolute; inset:0; }
+    .sl-after img, .sl-before img { width:100%; height:100%; object-fit:cover; }
+    .sl-before { clip-path:inset(0 50% 0 0); }
+
+    .sl-label {
+      position:absolute; top:18px;
+      padding:7px 16px; border-radius:100px;
+      font-size:10px; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+    }
+    .sl-label.before {
+      left:18px;
+      background:rgba(255,60,60,.18);
+      border:1px solid rgba(255,60,60,.38);
+      color:#ff7070;
+    }
+    .sl-label.after {
+      right:18px;
+      background:rgba(85,255,102,.18);
+      border:1px solid rgba(85,255,102,.38);
+      color:var(--green);
+    }
+    .sl-handle {
+      position:absolute; top:0; bottom:0; left:50%;
+      width:3px; background:rgba(245,245,245,.9);
+      transform:translateX(-50%);
+      cursor:ew-resize; z-index:10;
+    }
+    .sl-knob {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:44px; height:44px; border-radius:50%;
+      background:var(--white);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 20px rgba(0,0,0,.5);
+    }
+    .ba-hint {
+      text-align:center; margin-top:18px;
+      font-size:11px; letter-spacing:2.5px;
+      text-transform:uppercase; color:rgba(245,245,245,.28);
+    }
+
+    /* ============================================================
+       SECTION: PROCESS
+    ============================================================ */
+    .sec-process { padding:120px 0; background:var(--carbon); }
+    .process-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1px; background:rgba(245,245,245,.04);
+      margin-top:72px;
+      border-top:1px solid rgba(85,255,102,.12);
+      border-bottom:1px solid rgba(85,255,102,.12);
+    }
+    .step {
+      background:var(--carbon); padding:48px 34px;
+      position:relative; overflow:hidden; transition:background .4s;
+    }
+    .step:hover { background:rgba(85,255,102,.04); }
+    .step::before {
+      content:''; position:absolute; top:0; left:0; right:0;
+      height:2px; background:var(--green);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .4s var(--ease-out);
+    }
+    .step:hover::before { transform:scaleX(1); }
+    .step-n {
+      font-family:var(--display); font-size:76px;
+      color:rgba(85,255,102,.1); line-height:1; margin-bottom:20px;
+      transition:color .4s;
+    }
+    .step:hover .step-n { color:rgba(85,255,102,.22); }
+    .step-icon {
+      width:42px; height:42px; border-radius:9px;
+      background:var(--green-dim);
+      border:1px solid rgba(85,255,102,.18);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:18px; font-size:19px;
+    }
+    .step-title {
+      font-family:var(--display); font-size:25px;
+      letter-spacing:1px; margin-bottom:12px;
+    }
+    .step-text {
+      font-size:13px; color:rgba(245,245,245,.48); line-height:1.6;
+    }
+
+    /* ============================================================
+       SECTION: TESTIMONIALS
+    ============================================================ */
+    .sec-test { padding:120px 0; }
+    .test-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:18px; margin-top:60px;
+    }
+    .tcard {
+      background:var(--carbon-2);
+      border:1px solid var(--white-06);
+      border-radius:12px; padding:30px;
+      position:relative; overflow:hidden;
+      transition:all .4s;
+    }
+    .tcard::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(to right, transparent, var(--green), transparent);
+      opacity:0; transition:opacity .4s;
+    }
+    .tcard:hover::before { opacity:1; }
+    .tcard:hover {
+      border-color:rgba(85,255,102,.14);
+      transform:translateY(-6px);
+      box-shadow:0 22px 60px rgba(0,0,0,.4);
+    }
+    .stars { display:flex; gap:3px; margin-bottom:18px; }
+    .star { color:var(--green); font-size:13px; }
+    .tquote {
+      font-size:50px; color:var(--green); opacity:.16;
+      font-family:Georgia,serif; line-height:1; margin-bottom:-8px;
+    }
+    .ttext {
+      font-size:14px; color:rgba(245,245,245,.68);
+      line-height:1.72; margin-bottom:22px;
+    }
+    .tauthor { display:flex; align-items:center; gap:12px; }
+    .tavatar {
+      width:40px; height:40px; border-radius:50%; flex-shrink:0;
+      background:var(--green-dim);
+      border:1px solid rgba(85,255,102,.28);
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--display); font-size:17px; color:var(--green);
+    }
+    .tname { font-size:13px; font-weight:700; }
+    .tdetail { font-size:11px; color:rgba(245,245,245,.38); margin-top:2px; }
+
+    /* ============================================================
+       SECTION: BUSINESS
+    ============================================================ */
+    .sec-biz { padding:120px 0; background:var(--carbon); }
+    .biz-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+    .biz-img-wrap {
+      position:relative; border-radius:14px;
+      overflow:hidden; aspect-ratio:4/3;
+    }
+    .biz-img { width:100%; height:100%; object-fit:cover; }
+    .biz-img-ov {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(85,255,102,.04), transparent);
+    }
+    .biz-title {
+      font-family:var(--display);
+      font-size:clamp(42px,4.8vw,68px);
+      line-height:1; margin-bottom:22px;
+    }
+    .biz-title .gn { color:var(--green); }
+    .biz-text {
+      font-size:15px; color:rgba(245,245,245,.58);
+      line-height:1.75; margin-bottom:36px;
+    }
+    .biz-tags { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:38px; }
+    .biz-tag {
+      padding:8px 18px; border-radius:100px;
+      border:1px solid rgba(85,255,102,.18);
+      font-size:12px; font-weight:500; letter-spacing:1px;
+      color:rgba(245,245,245,.55); transition:all .3s;
+    }
+    .biz-tag:hover {
+      border-color:var(--green); color:var(--green);
+      background:var(--green-dim);
+    }
+
+    /* ============================================================
+       SECTION: CTA
+    ============================================================ */
+    .sec-cta {
+      position:relative; padding:168px 0;
+      overflow:hidden; text-align:center;
+    }
+    .cta-bg {
+      position:absolute; inset:0;
+      background-image:url('images/hero5.png');
+      background-size:cover; background-position:center;
+      filter:brightness(.22);
+    }
+    .cta-ov {
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse at center, rgba(85,255,102,.07) 0%, rgba(5,5,5,.82) 68%);
+    }
+    .cta-content { position:relative; z-index:2; }
+    .cta-title {
+      font-family:var(--display);
+      font-size:clamp(46px,8.5vw,112px);
+      line-height:.94; margin-bottom:30px;
+    }
+    .cta-title .gn { color:var(--green); }
+    .cta-sub {
+      font-size:17px; color:rgba(245,245,245,.52);
+      margin:0 auto 50px; max-width:500px; line-height:1.65;
+    }
+    .btn-wa {
+      display:inline-flex; align-items:center; gap:14px;
+      background:var(--green); color:var(--black);
+      font-family:var(--body); font-size:13px; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      padding:20px 46px; border-radius:100px;
+      border:none; cursor:pointer;
+      transition:all .4s cubic-bezier(.34,1.56,.64,1);
+      box-shadow:0 0 0 0 rgba(85,255,102,.3);
+    }
+    .btn-wa:hover {
+      background:#44ee55;
+      box-shadow:0 0 64px rgba(85,255,102,.42), 0 0 0 14px rgba(85,255,102,.09);
+      transform:translateY(-5px) scale(1.02);
+    }
+    .btn-wa svg { width:22px; height:22px; flex-shrink:0; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background:var(--carbon);
+      border-top:1px solid var(--white-06);
+      padding:80px 0 40px;
+    }
+    .footer-grid {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:48px; padding-bottom:64px;
+      border-bottom:1px solid var(--white-06);
+      margin-bottom:40px;
+    }
+    .f-brand-text {
+      font-size:13px; color:rgba(245,245,245,.38);
+      line-height:1.72; margin:18px 0 22px; max-width:270px;
+    }
+    .f-socials { display:flex; gap:10px; }
+    .f-social {
+      width:36px; height:36px; border-radius:7px;
+      border:1px solid var(--white-10);
+      display:flex; align-items:center; justify-content:center;
+      color:rgba(245,245,245,.38); font-size:15px; transition:all .3s;
+    }
+    .f-social:hover {
+      border-color:var(--green); color:var(--green);
+      background:var(--green-dim);
+    }
+    .f-col-title {
+      font-size:10px; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:rgba(245,245,245,.28);
+      margin-bottom:22px;
+    }
+    .f-links { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .f-links a {
+      font-size:13px; color:rgba(245,245,245,.48); transition:color .3s;
+    }
+    .f-links a:hover { color:var(--green); }
+    .footer-bottom {
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .f-copy { font-size:12px; color:rgba(245,245,245,.22); }
+    .f-copy em { color:var(--green); font-style:normal; }
+    .f-badge {
+      display:flex; align-items:center; gap:8px;
+      font-size:11px; color:rgba(245,245,245,.22);
+    }
+    .f-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--green); animation:pulse 2s ease-in-out infinite;
+    }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(105%)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+    @keyframes pulse   { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width:1024px) {
+      .problem-grid,.ppf-grid,.biz-grid { grid-template-columns:1fr; gap:48px; }
+      .ppf-img-wrap { order:-1; aspect-ratio:16/9; }
+      .process-grid { grid-template-columns:repeat(2,1fr); }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:768px) {
+      .nav-links,.btn-nav-wrap { display:none; }
+      .hamburger { display:flex; }
+      .mobile-overlay { display:flex; }
+      .test-grid { grid-template-columns:1fr; }
+      .process-grid { grid-template-columns:1fr; }
+      .card { flex:0 0 300px; height:380px; }
+      .footer-grid { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column; gap:10px; text-align:center; }
+      .indicators { display:none; }
+      body { cursor:auto; }
+      #cursor,#cursor-ring { display:none; }
+    }
+    @media (max-width:480px) {
+      .stats-grid { grid-template-columns:1fr 1fr; }
+      .ppf-feats { grid-template-columns:1fr; }
+      .biz-tags  { gap:8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="#inicio"          onclick="closeMenu()">Inicio</a>
+  <a href="#disenos"         onclick="closeMenu()">Diseños</a>
+  <a href="#ppf"             onclick="closeMenu()">PPF</a>
+  <a href="#transformaciones"onclick="closeMenu()">Transformaciones</a>
+  <a href="#empresas"        onclick="closeMenu()">Empresas</a>
+  <a href="#nosotros"        onclick="closeMenu()">Nosotros</a>
+  <a href="#contacto"        onclick="closeMenu()">Contacto</a>
+</div>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#inicio" class="logo">
+      <div class="logo-box">W</div>
+      WRAP HOUSE <em>DESIGN</em>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#disenos">Diseños</a></li>
+      <li><a href="#ppf">PPF</a></li>
+      <li><a href="#transformaciones">Transformaciones</a></li>
+      <li><a href="#empresas">Empresas</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li>
+        <a href="https://wa.me/573001234567?text=Hola%2C+quiero+cotizar+un+diseño" class="btn-nav">
+          Cotizar
+        </a>
+      </li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="inicio">
+  <div class="slides">
+    <div class="slide active"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+  <div class="hero-ov"></div>
+  <div class="hero-ov-bottom"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Bogotá, Colombia — Personalización Premium</p>
+    <h1 class="hero-h1">
+      <span class="h1-line"><span class="h1-word">DISEÑAMOS.</span></span>
+      <span class="h1-line"><span class="h1-word">PROTEGEMOS.</span></span>
+      <span class="h1-line"><span class="h1-word">TRANSFORMAMOS.</span></span>
+    </h1>
+    <p class="hero-sub">Diseños exclusivos y protección PPF de alta gama para motos deportivas. Cada detalle es intencional.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/573001234567?text=Hola%21+Quiero+cotizar+un+diseño+para+mi+moto." class="btn-primary ico-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.6 9.6 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 012.165 11.9C2.166 6.449 6.6 2.015 12.052 2.015c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05.015C5.495.015.16 5.35.157 11.907c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+        </svg>
+        Cotizar por WhatsApp
+      </a>
+      <a href="#disenos" class="btn-secondary">
+        Ver Diseños
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="indicators" id="indicators">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+    <div class="dot" onclick="goSlide(3)"></div>
+    <div class="dot" onclick="goSlide(4)"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS BAR
+============================================================ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-n" data-target="150" data-suffix="+">0</div>
+        <div class="stat-l">Motos transformadas</div>
+      </div>
+      <div class="stat reveal d1">
+        <div class="stat-n" data-target="98" data-suffix="%">0</div>
+        <div class="stat-l">Clientes satisfechos</div>
+      </div>
+      <div class="stat reveal d2">
+        <div class="stat-n" data-target="3" data-suffix="+">0</div>
+        <div class="stat-l">Años de experiencia</div>
+      </div>
+      <div class="stat reveal d3">
+        <div class="stat-n" data-target="24" data-suffix="h">0</div>
+        <div class="stat-l">Horas promedio instalación</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CAROUSEL
+============================================================ -->
+<section class="sec-carousel" id="disenos">
+  <div class="container">
+    <div class="sec-header">
+      <p class="tag reveal">Galería de diseños</p>
+      <h2 class="sec-title reveal d1">DISEÑOS QUE<br>MARCAN LA<br><span style="color:var(--green)">DIFERENCIA</span></h2>
+      <p class="sec-sub reveal d2">Cada moto es un lienzo en blanco. Nosotros la convertimos en una obra de arte sobre ruedas.</p>
+    </div>
+  </div>
+  <div class="track" id="track">
+    <div class="card reveal">
+      <img class="card-img" src="images/hero1.png" alt="Gixxer Pink Edition" loading="lazy">
+      <div class="card-ov"></div>
+      <div class="card-border"></div>
+      <div class="card-body">
+        <p class="card-tag">Diseño exclusivo</p>
+        <h3 class="card-name">Pink Edition</h3>
+        <p class="card-desc">Negro & rosa glossy. Vinilo premium con detalles neón.</p>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <img class="card-img" src="images/hero2.png" alt="Gixxer Blue Racing" loading="lazy">
+      <div class="card-ov"></div>
+      <div class="card-border"></div>
+      <div class="card-body">
+        <p class="card-tag">Racing series</p>
+        <h3 class="card-name">Blue Performance</h3>
+        <p class="card-desc">Inspirado en el circuito. Azul, blanco y negro con rojo.</p>
+      </div>
+    </div>
+    <div class="card reveal d2">
+      <img class="card-img" src="images/hero3.png" alt="Gixxer Red Shark" loading="lazy">
+      <div class="card-ov"></div>
+      <div class="card-border"></div>
+      <div class="card-body">
+        <p class="card-tag">Sport series</p>
+        <h3 class="card-name">Red Shark</h3>
+        <p class="card-desc">Diseño agresivo rojo y blanco. Presencia total en la vía.</p>
+      </div>
+    </div>
+    <div class="card reveal d3">
+      <img class="card-img" src="images/hero4.png" alt="Gixxer Carbon Black" loading="lazy">
+      <div class="card-ov"></div>
+      <div class="card-border"></div>
+      <div class="card-body">
+        <p class="card-tag">Stealth series</p>
+        <h3 class="card-name">Carbon Black</h3>
+        <p class="card-desc">Minimalismo oscuro. Negro mate con detalles verde neón.</p>
+      </div>
+    </div>
+    <div class="card reveal d4">
+      <img class="card-img" src="images/hero5.png" alt="Gixxer Limited Edition" loading="lazy">
+      <div class="card-ov"></div>
+      <div class="card-border"></div>
+      <div class="card-body">
+        <p class="card-tag">Limited edition</p>
+        <h3 class="card-name">Neon Pink Ltd.</h3>
+        <p class="card-desc">Edición limitada. Para quienes no temen destacar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROBLEMA
+============================================================ -->
+<section class="sec-problem" id="transformaciones">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="prob-img-wrap reveal">
+        <img class="prob-img" src="images/before.png" alt="Moto con rayones y daños">
+        <div class="prob-img-ov"></div>
+        <span class="prob-badge">⚠ Sin protección</span>
+      </div>
+      <div>
+        <p class="tag reveal">El problema real</p>
+        <h2 class="prob-title reveal d1">
+          Una moto nueva se <span class="hl">raya más rápido</span> de lo que crees.
+        </h2>
+        <p class="prob-text reveal d2">
+          El sol, la lluvia, el polvo y los pequeños roces del día a día van destruyendo el acabado de tu moto. En menos de un año, esa pintura que te enamoró ya no existe.
+        </p>
+        <ul class="prob-list">
+          <li class="prob-item reveal d2">
+            <span class="prob-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff7070" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/>
+              </svg>
+            </span>
+            Rayones superficiales que aparecen solos
+          </li>
+          <li class="prob-item reveal d3">
+            <span class="prob-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff7070" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/>
+              </svg>
+            </span>
+            Pérdida de brillo y profundidad de color
+          </li>
+          <li class="prob-item reveal d4">
+            <span class="prob-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff7070" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/>
+              </svg>
+            </span>
+            Daño UV, calor y decoloración prematura
+          </li>
+          <li class="prob-item reveal d4">
+            <span class="prob-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff7070" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/>
+              </svg>
+            </span>
+            Devaluación inmediata de tu inversión
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PPF
+============================================================ -->
+<section class="sec-ppf" id="ppf">
+  <div class="container">
+    <div class="ppf-grid">
+      <div>
+        <p class="tag reveal">Paint Protection Film</p>
+        <h2 class="ppf-title reveal d1">
+          PROTEGE TU<br>INVERSIÓN.<br><span class="gn">MANTÉN EL BRILLO.</span>
+        </h2>
+        <p class="ppf-text reveal d2">
+          El PPF es una película de poliuretano termoformable, prácticamente invisible, que actúa como segunda piel de tu moto. Absorbe impactos, resiste rayones y se autorrepara con el calor del sol.
+        </p>
+        <div class="ppf-feats reveal d2">
+          <div class="ppf-feat">
+            <div class="ppf-feat-icon">🛡️</div>
+            <div class="ppf-feat-title">Protección Total</div>
+            <div class="ppf-feat-text">Resistente a impactos, abrasión y partículas</div>
+          </div>
+          <div class="ppf-feat">
+            <div class="ppf-feat-icon">✨</div>
+            <div class="ppf-feat-title">Autorregeneración</div>
+            <div class="ppf-feat-text">Rayones superficiales desaparecen con el calor</div>
+          </div>
+          <div class="ppf-feat">
+            <div class="ppf-feat-icon">👁️</div>
+            <div class="ppf-feat-title">Invisible</div>
+            <div class="ppf-feat-text">Preserva el color original con total claridad</div>
+          </div>
+          <div class="ppf-feat">
+            <div class="ppf-feat-icon">☀️</div>
+            <div class="ppf-feat-title">Anti UV</div>
+            <div class="ppf-feat-text">Bloquea radiación que decolora y oxida</div>
+          </div>
+        </div>
+        <a href="https://wa.me/573001234567?text=Hola%21+Quiero+cotizar+PPF+para+mi+moto." class="btn-primary reveal d3">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.6 9.6 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 012.165 11.9C2.166 6.449 6.6 2.015 12.052 2.015c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05.015C5.495.015.16 5.35.157 11.907c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+          </svg>
+          Cotizar PPF
+        </a>
+      </div>
+      <div class="ppf-img-wrap reveal d2">
+        <img class="ppf-img" src="images/hero4.png" alt="Instalación PPF premium">
+        <div class="ppf-badge">
+          <div class="ppf-badge-label">Garantía incluida</div>
+          <div class="ppf-badge-val">5 AÑOS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ANTES / DESPUÉS
+============================================================ -->
+<section class="sec-ba" id="nosotros">
+  <div class="container" style="text-align:center">
+    <p class="tag reveal" style="justify-content:center">Resultados reales</p>
+    <h2 class="sec-title reveal d1" style="text-align:center">
+      ANTES <span style="color:var(--green)">&</span> DESPUÉS
+    </h2>
+    <p class="sec-sub reveal d2" style="margin:14px auto 0;text-align:center">
+      La diferencia que hace Wrap House Design. Desliza para ver la transformación.
+    </p>
+  </div>
+  <div class="ba-wrap reveal d2">
+    <div class="slider-box" id="sliderBox">
+      <div class="sl-after">
+        <img src="images/hero1.png" alt="Después — moto restaurada premium">
+        <span class="sl-label after">Después</span>
+      </div>
+      <div class="sl-before" id="slBefore">
+        <img src="images/before.png" alt="Antes — moto con rayones">
+        <span class="sl-label before">Antes</span>
+      </div>
+      <div class="sl-handle" id="slHandle">
+        <div class="sl-knob">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5">
+            <path d="M21 12H3M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <p class="ba-hint">← Desliza para comparar →</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESO
+============================================================ -->
+<section class="sec-process">
+  <div class="container">
+    <p class="tag reveal">Cómo trabajamos</p>
+    <h2 class="sec-title reveal d1">PROCESO <span style="color:var(--green)">PREMIUM</span></h2>
+  </div>
+  <div class="process-grid">
+    <div class="step reveal">
+      <div class="step-n">01</div>
+      <div class="step-icon">💬</div>
+      <h3 class="step-title">Asesoría Personalizada</h3>
+      <p class="step-text">Entendemos tu visión, tu estilo y tu moto. Diseñamos juntos lo que quieres ver en la vía.</p>
+    </div>
+    <div class="step reveal d1">
+      <div class="step-n">02</div>
+      <div class="step-icon">🎨</div>
+      <h3 class="step-title">Diseño Exclusivo</h3>
+      <p class="step-text">Creamos un diseño digital 100% personalizado para que veas el resultado antes de instalar.</p>
+    </div>
+    <div class="step reveal d2">
+      <div class="step-n">03</div>
+      <div class="step-icon">⚙️</div>
+      <h3 class="step-title">Instalación Premium</h3>
+      <p class="step-text">Instaladores certificados, materiales de primera y atención milimétrica a cada detalle.</p>
+    </div>
+    <div class="step reveal d3">
+      <div class="step-n">04</div>
+      <div class="step-icon">🏁</div>
+      <h3 class="step-title">Entrega Impecable</h3>
+      <p class="step-text">Tu moto sale perfecta. Garantía escrita incluida en cada trabajo que realizamos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIOS
+============================================================ -->
+<section class="sec-test">
+  <div class="container">
+    <p class="tag reveal">Lo que dicen nuestros clientes</p>
+    <h2 class="sec-title reveal d1">VOCES QUE<br><span style="color:var(--green)">HABLAN</span></h2>
+    <div class="test-grid">
+      <div class="tcard reveal">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">La moto quedó increíble. Wrap House entiende exactamente lo que buscas. Vine por Instagram y no me arrepiento para nada. Cada detalle del diseño es perfecto.</p>
+        <div class="tauthor">
+          <div class="tavatar">S</div>
+          <div><div class="tname">Santiago M.</div><div class="tdetail">Gixxer 150 · Pink Edition</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal d1">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">El PPF fue la mejor inversión que hice. Lleva 8 meses y sigue impecable. Ni un rayón. La calidad del trabajo no la esperaba encontrar en Colombia.</p>
+        <div class="tauthor">
+          <div class="tavatar">A</div>
+          <div><div class="tname">Andrés V.</div><div class="tdetail">Gixxer SF · PPF completo</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal d2">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">Branding para mis repartidores. Las motos son la imagen de mi restaurante en la calle. Wrap House hizo algo espectacular. Mis clientes las reconocen al instante.</p>
+        <div class="tauthor">
+          <div class="tavatar">C</div>
+          <div><div class="tname">Carlos R.</div><div class="tdetail">Empresa · Flota de 6 motos</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">Vine con una moto toda rayada que ya no quería ni sacar. Hoy es la más bonita del conjunto. La transformación es real, no exageran en TikTok.</p>
+        <div class="tauthor">
+          <div class="tavatar">L</div>
+          <div><div class="tname">Laura P.</div><div class="tdetail">Gixxer · Corrección + Wrap</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal d1">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">Atención al cliente de primer nivel. Te mantienen informado durante todo el proceso. El resultado final es impresionante. Mi Gixxer parece de showroom.</p>
+        <div class="tauthor">
+          <div class="tavatar">D</div>
+          <div><div class="tname">Diego F.</div><div class="tdetail">Gixxer 250 · Full Wrap</div></div>
+        </div>
+      </div>
+      <div class="tcard reveal d2">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="tquote">"</div>
+        <p class="ttext">Tercera vez que traigo una moto. No confío en nadie más para mis diseños. El nivel de detalle y la calidad del vinilo no lo he visto en otro lugar en Bogotá.</p>
+        <div class="tauthor">
+          <div class="tavatar">J</div>
+          <div><div class="tname">Julián T.</div><div class="tdetail">Cliente recurrente · 3 motos</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EMPRESAS
+============================================================ -->
+<section class="sec-biz" id="empresas">
+  <div class="container">
+    <div class="biz-grid">
+      <div class="biz-img-wrap reveal">
+        <img class="biz-img" src="images/business.png" alt="Moto con branding empresarial Red Bull">
+        <div class="biz-img-ov"></div>
+      </div>
+      <div>
+        <p class="tag reveal">Para empresas</p>
+        <h2 class="biz-title reveal d1">
+          LLEVAMOS TU<br><span class="gn">MARCA</span><br>A OTRO NIVEL.
+        </h2>
+        <p class="biz-text reveal d2">
+          Tu flota de motos es publicidad que se mueve por toda la ciudad. Diseñamos branding premium que hace que tu marca sea reconocida al instante en cualquier calle de Bogotá.
+        </p>
+        <div class="biz-tags reveal d2">
+          <span class="biz-tag">🍕 Restaurantes</span>
+          <span class="biz-tag">📦 Delivery</span>
+          <span class="biz-tag">🏪 Retail</span>
+          <span class="biz-tag">💼 Corporativo</span>
+          <span class="biz-tag">📱 Tech</span>
+          <span class="biz-tag">🎯 Marketing</span>
+        </div>
+        <a href="https://wa.me/573001234567?text=Hola%21+Quiero+cotizar+branding+empresarial+para+mi+flota." class="btn-primary reveal d3">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.6 9.6 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 012.165 11.9C2.166 6.449 6.6 2.015 12.052 2.015c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05.015C5.495.015.16 5.35.157 11.907c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+          </svg>
+          Cotizar branding empresarial
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+============================================================ -->
+<section class="sec-cta" id="contacto">
+  <div class="cta-bg"></div>
+  <div class="cta-ov"></div>
+  <div class="container">
+    <div class="cta-content">
+      <p class="tag reveal" style="justify-content:center;margin-bottom:28px">Bogotá, Colombia</p>
+      <h2 class="cta-title reveal d1">
+        ¿LISTO PARA<br><span class="gn">TRANSFORMAR</span><br>TU MOTO?
+      </h2>
+      <p class="cta-sub reveal d2">
+        Cotiza ahora y recibe asesoría personalizada sin costo. Respondemos en menos de 2 horas.
+      </p>
+      <a href="https://wa.me/573001234567?text=Hola+Wrap+House+Design%21+Quiero+cotizar+un+servicio+para+mi+moto." class="btn-wa reveal d3">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.6 9.6 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 012.165 11.9C2.166 6.449 6.6 2.015 12.052 2.015c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05.015C5.495.015.16 5.35.157 11.907c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+        </svg>
+        Cotizar ahora por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:0">
+          <div class="logo-box">W</div>
+          WRAP HOUSE <em>DESIGN</em>
+        </div>
+        <p class="f-brand-text">Diseños premium y protección PPF para motos deportivas en Bogotá. Aquí lo que sobra es estilo.</p>
+        <div class="f-socials">
+          <a href="#" class="f-social" title="TikTok">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.15 8.15 0 004.77 1.52V6.69a4.85 4.85 0 01-1-.01z"/></svg>
+          </a>
+          <a href="#" class="f-social" title="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/573001234567" class="f-social" title="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.6 9.6 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374A9.86 9.86 0 012.165 11.9C2.166 6.449 6.6 2.015 12.052 2.015c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05.015C5.495.015.16 5.35.157 11.907c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="f-col-title">Servicios</h4>
+        <ul class="f-links">
+          <li><a href="#ppf">Paint Protection Film</a></li>
+          <li><a href="#disenos">Diseños personalizados</a></li>
+          <li><a href="#transformaciones">Corrección de rayones</a></li>
+          <li><a href="#transformaciones">Restauración estética</a></li>
+          <li><a href="#empresas">Branding empresarial</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="f-col-title">Navegación</h4>
+        <ul class="f-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#disenos">Galería</a></li>
+          <li><a href="#ppf">PPF</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#empresas">Empresas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="f-col-title">Contacto</h4>
+        <ul class="f-links">
+          <li><a href="https://wa.me/573001234567">💬 WhatsApp</a></li>
+          <li><a href="#">📍 Bogotá, Colombia</a></li>
+          <li><a href="#">Lun – Sáb: 8am – 6pm</a></li>
+          <li><a href="#">@wraphousedesign</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="f-copy">© 2025 <em>Wrap House Design</em>. Todos los derechos reservados.</p>
+      <div class="f-badge"><div class="f-dot"></div> Bogotá, Colombia</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ── CURSOR ──────────────────────────────────────────────── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function animRing() {
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.card,.tcard,.step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2)'; ring.style.borderColor='rgba(85,255,102,.9)'; ring.style.transform='translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)'; ring.style.borderColor='rgba(85,255,102,.45)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+/* ── NAVBAR ──────────────────────────────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('solid', scrollY>50); }, {passive:true});
+
+/* ── HERO SLIDESHOW ──────────────────────────────────────── */
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+let cur_s = 0;
+function goSlide(n) {
+  slides[cur_s].classList.remove('active'); dots[cur_s].classList.remove('active');
+  cur_s = n;
+  slides[cur_s].classList.add('active'); dots[cur_s].classList.add('active');
+}
+setInterval(()=>goSlide((cur_s+1)%slides.length), 5000);
+
+/* ── MOBILE MENU ─────────────────────────────────────────── */
+const overlay = document.getElementById('mobileOverlay');
+const ham     = document.getElementById('hamburger');
+let open = false;
+function toggleMenu() {
+  open = !open;
+  overlay.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  const ss = ham.querySelectorAll('span');
+  if(open){ ss[0].style.cssText='transform:rotate(45deg) translate(5px,5px)'; ss[1].style.opacity='0'; ss[2].style.cssText='transform:rotate(-45deg) translate(5px,-5px)'; }
+  else    { ss.forEach(s=>s.style.cssText=''); }
+}
+function closeMenu() { if(open) toggleMenu(); }
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold:.1, rootMargin:'0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ── COUNTERS ────────────────────────────────────────────── */
+const cntObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target;
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix||'';
+    const t0 = performance.now();
+    (function tick(now){
+      const p = Math.min((now-t0)/2200, 1);
+      const ease = 1-Math.pow(1-p,3);
+      el.textContent = Math.round(target*ease)+suffix;
+      if(p<1) requestAnimationFrame(tick);
+    })(t0);
+    cntObs.unobserve(el);
+  });
+}, {threshold:.5});
+document.querySelectorAll('.stat-n[data-target]').forEach(el=>cntObs.observe(el));
+
+/* ── CAROUSEL DRAG ───────────────────────────────────────── */
+const track = document.getElementById('track');
+let drag=false, sx=0, sl=0;
+track.addEventListener('mousedown', e=>{ drag=true; track.classList.add('grab'); sx=e.pageX-track.offsetLeft; sl=track.scrollLeft; });
+document.addEventListener('mouseup', ()=>{ drag=false; track.classList.remove('grab'); });
+document.addEventListener('mousemove', e=>{ if(!drag) return; e.preventDefault(); track.scrollLeft = sl-(e.pageX-track.offsetLeft-sx)*1.5; });
+track.addEventListener('touchstart', e=>{ sx=e.touches[0].pageX-track.offsetLeft; sl=track.scrollLeft; },{passive:true});
+track.addEventListener('touchmove',  e=>{ track.scrollLeft = sl-(e.touches[0].pageX-track.offsetLeft-sx); },{passive:true});
+
+/* ── BEFORE / AFTER SLIDER ───────────────────────────────── */
+const box      = document.getElementById('sliderBox');
+const slBefore = document.getElementById('slBefore');
+const handle   = document.getElementById('slHandle');
+let slDrag = false;
+
+function setSlider(x) {
+  const r = box.getBoundingClientRect();
+  let p = Math.max(2, Math.min(98, (x-r.left)/r.width*100));
+  slBefore.style.clipPath = `inset(0 ${100-p}% 0 0)`;
+  handle.style.left = p+'%';
+}
+
+handle.addEventListener('mousedown', e=>{ slDrag=true; e.preventDefault(); });
+box.addEventListener('mousedown',    e=>{ slDrag=true; setSlider(e.clientX); });
+document.addEventListener('mouseup', ()=>{ slDrag=false; });
+document.addEventListener('mousemove', e=>{ if(slDrag) setSlider(e.clientX); });
+box.addEventListener('touchstart', ()=>{ slDrag=true; },{passive:true});
+document.addEventListener('touchend', ()=>{ slDrag=false; });
+document.addEventListener('touchmove', e=>{ if(slDrag) setSlider(e.touches[0].clientX); },{passive:true});
+
+/* Auto-hint animation for slider */
+setTimeout(()=>{
+  let p=50, dir=-1, steps=0;
+  const hint = setInterval(()=>{
+    p += dir*.6;
+    const r = box.getBoundingClientRect();
+    setSlider(r.left + r.width*(p/100));
+    if(p<=20 && dir===-1){ dir=1; }
+    if(p>=50 && dir===1){ steps++; if(steps>=1){ clearInterval(hint); } }
+  }, 16);
+}, 2400);
+</script>
+</body>
+</html>
