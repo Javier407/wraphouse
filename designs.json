@@ -14,7 +14,8 @@
         { "src": "images/gixxer-sf/sf02.png",   "name": "Hayabusa SF 3.0", "tag": "Limited edition", "price": "380.000" },
         { "src": "images/gixxer-sf/sf03.png",   "name": "Red Bull SF 8.0", "tag": "Racing series",   "price": "380.000" },
         { "src": "images/gixxer-sf/sf04.png",   "name": "SKR SF 14.0",     "tag": "Custom series",   "price": "620.000" },
-        { "src": "images/gixxer-sf/sf05.png",   "name": "Tron 2.0",        "tag": "Stealth series",  "price": "380.000" }
+        { "src": "images/gixxer-sf/sf05.png",   "name": "Tron 2.0",        "tag": "Stealth series",  "price": "380.000" },
+        { "src": "images/gixxer-sf/sf06.png",   "name": "RS SF 6.0",       "tag": "Custom series",   "price": "380.000" }
       ]
     },
     {
@@ -49,7 +50,7 @@
       "designs": [
         { "src": "images/apache-rtr/apr01.png", "name": "Apache C",     "tag": "Custom series", "price": "260.000" },
         { "src": "images/apache-rtr/apr02.png", "name": "MA 1.0",       "tag": "Custom series", "price": "390.000" },
-        { "src": "images/apache-rtr/apr03.png", "name": "Oriental 1.0", "tag": "Custom series" },
+        { "src": "images/apache-rtr/apr03.png", "name": "Oriental 1.0", "tag": "Custom series", "price": "350.000" },
         { "src": "images/apache-rtr/apr04.png", "name": "RTR 1.2",      "tag": "Sport series",  "price": "370.000" },
         { "src": "images/apache-rtr/apr05.png", "name": "Yellow 1.0",   "tag": "Custom series", "price": "340.000" }
       ]
