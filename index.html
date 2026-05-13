@@ -372,13 +372,8 @@
     .marquee-outer::before { left:0;background:linear-gradient(to right,var(--black),transparent); }
     .marquee-outer::after  { right:0;background:linear-gradient(to left,var(--black),transparent); }
 
-    .marquee-track { display:flex;gap:14px;width:max-content;animation:marquee-ltr 55s linear infinite; }
-    .marquee-track:hover { animation-play-state:paused; }
-
-    @keyframes marquee-ltr {
-      from { transform:translateX(0); }
-      to   { transform:translateX(-50%); }
-    }
+    /* marquee animado por JS — no usar CSS animation aquí */
+    .marquee-track { display:flex;gap:14px;width:max-content; }
 
     .rev-card {
       flex:0 0 250px; background:var(--carbon-2);
@@ -803,9 +798,10 @@
 
     /* ── REDUCED MOTION (accesibilidad) ───────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-      .marquee-track { animation:none; }
-      .scroll-line::after { animation:none; }
+      .h1-word, .hero-eyebrow, .hero-sub, .hero-btns,
+      .scroll-hint, .proc-dot::after, .wa-float-btn::before,
+      .scroll-line::after { animation:none !important; }
+      .reveal { opacity:1 !important; transform:none !important; }
     }
 
     /* ── VALIDACIÓN INLINE FORMULARIO ─────────────────────── */
@@ -1141,7 +1137,7 @@
 <section class="sec-test">
   <div class="container">
     <p class="tag reveal">Lo que dicen nuestros clientes</p>
-    <h2 class="sec-title reveal d1">RESEÑAS<br><span style="color:var(--green)">REALES</span></h2>
+    <h2 class="sec-title reveal d1">LO QUE<br><span style="color:var(--green)">NOS DICEN</span></h2>
     <!-- Badge Google Maps -->
     <div class="g-badge reveal d2">
       <div class="g-badge-logo">
@@ -1563,6 +1559,33 @@ document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
 
   loadCarousels();
 
+})();
+
+/* ── MARQUEE INFINITO (JS — loop preciso sin saltos) ── */
+(function initMarquee() {
+  const track = document.querySelector('.marquee-track');
+  if (!track) return;
+  track.style.willChange = 'transform';
+
+  let pos = 0;
+  let paused = false;
+  const SPEED = 0.55; // px por frame (≈ 33px/seg a 60fps)
+
+  track.addEventListener('mouseenter', () => paused = true);
+  track.addEventListener('mouseleave', () => paused = false);
+
+  function tick() {
+    if (!paused) {
+      pos -= SPEED;
+      // scrollWidth es el ancho REAL del track (16 tarjetas)
+      // La mitad exacta es donde comienza el duplicado
+      const half = track.scrollWidth / 2;
+      if (pos <= -half) pos += half;
+      track.style.transform = 'translateX(' + pos + 'px)';
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 
 /* BEFORE / AFTER SLIDER */
