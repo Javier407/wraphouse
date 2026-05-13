@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "updated": "2026-05-12",
+  "note": "Para agregar imagenes: copia el .png a images/<modelo>/, agrega 1 linea en designs[], corre scripts/generate-manifest.ps1",
+  "models": [
+    {
+      "id": "gixxer-sf",
+      "label": "GIXXER SF 150",
+      "scan_folder": "images/gixxer-sf",
+      "designs": [
+        { "src": "images/centro1.png",          "name": "Neon Green",       "tag": "Studio series"   },
+        { "src": "images/centro2.png",          "name": "Phantom Purple",   "tag": "Studio series"   },
+        { "src": "images/gixxer-sf/sf01.png",   "name": "DG SF 13.0",      "tag": "Custom series"   },
+        { "src": "images/gixxer-sf/sf02.png",   "name": "Hayabusa SF 3.0", "tag": "Limited edition" },
+        { "src": "images/gixxer-sf/sf03.png",   "name": "Red Bull SF 8.0", "tag": "Racing series"   },
+        { "src": "images/gixxer-sf/sf04.png",   "name": "SKR SF 14.0",     "tag": "Custom series"   },
+        { "src": "images/gixxer-sf/sf05.png",   "name": "Tron 2.0",        "tag": "Stealth series"  }
+      ]
+    },
+    {
+      "id": "gixxer-naked",
+      "label": "GIXXER NAKED 150",
+      "scan_folder": "images/gixxer-naked",
+      "designs": [
+        { "src": "images/gixxer-naked/gn01.png", "name": "Alpinestar 2.0",    "tag": "Sport series"    },
+        { "src": "images/gixxer-naked/gn02.png", "name": "Alpinestar 2.1 v2", "tag": "Sport series"    },
+        { "src": "images/gixxer-naked/gn03.png", "name": "Alpinestar 2.1",    "tag": "Sport series"    },
+        { "src": "images/gixxer-naked/gn04.png", "name": "AS 2.2",            "tag": "Custom series"   },
+        { "src": "images/gixxer-naked/gn05.png", "name": "BM 24.0",           "tag": "Stealth series"  },
+        { "src": "images/gixxer-naked/gn06.png", "name": "CL 26.0 FI",        "tag": "Custom series"   },
+        { "src": "images/gixxer-naked/gn07.png", "name": "Ecstar 3.0",        "tag": "Racing series"   },
+        { "src": "images/gixxer-naked/gn08.png", "name": "Gixxer 1.2",        "tag": "Stealth series"  },
+        { "src": "images/gixxer-naked/gn09.png", "name": "Gixxer DK 23.0",   "tag": "Custom series"   },
+        { "src": "images/gixxer-naked/gn10.png", "name": "Hayabusa 1.1 FI",  "tag": "Limited edition" },
+        { "src": "images/gixxer-naked/gn11.png", "name": "Hayabusa 1.0",     "tag": "Limited edition" },
+        { "src": "images/gixxer-naked/gn12.png", "name": "Hayabusa 1.1",     "tag": "Limited edition" },
+        { "src": "images/gixxer-naked/gn13.png", "name": "Red Bull 3.0",     "tag": "Racing series"   },
+        { "src": "images/gixxer-naked/gn14.png", "name": "RY 1.2",           "tag": "Custom series"   },
+        { "src": "images/gixxer-naked/gn15.png", "name": "Suzuki 4.1",       "tag": "Sport series"    },
+        { "src": "images/gixxer-naked/gn16.png", "name": "Suzuki 6.0",       "tag": "Sport series"    },
+        { "src": "images/gixxer-naked/gn17.png", "name": "XXR 12.0",         "tag": "Custom series"   },
+        { "src": "images/gixxer-naked/gn18.png", "name": "Hayabusa 1.3",     "tag": "Racing series"   }
+      ]
+    },
+    {
+      "id": "apache-rtr",
+      "label": "APACHE RTR 200",
+      "scan_folder": "images/apache-rtr",
+      "designs": [
+        { "src": "images/apache-rtr/apr01.png", "name": "Apache C",     "tag": "Custom series" },
+        { "src": "images/apache-rtr/apr02.png", "name": "MA 1.0",       "tag": "Custom series" },
+        { "src": "images/apache-rtr/apr03.png", "name": "Oriental 1.0", "tag": "Custom series" },
+        { "src": "images/apache-rtr/apr04.png", "name": "RTR 1.2",      "tag": "Sport series"  },
+        { "src": "images/apache-rtr/apr05.png", "name": "Yellow 1.0",   "tag": "Custom series" }
+      ]
+    },
+    {
+      "id": "dominar",
+      "label": "DOMINAR 400",
+      "scan_folder": "images/dominar",
+      "designs": [
+        { "src": "images/dominar/dom01.png", "name": "DF1 1.0",   "tag": "Sport series"   },
+        { "src": "images/dominar/dom02.png", "name": "Dominar Z", "tag": "Stealth series" },
+        { "src": "images/dominar/dom03.png", "name": "ST 1.0",    "tag": "Custom series"  }
+      ]
+    },
+    {
+      "id": "yamaha-r15",
+      "label": "YAMAHA R15 V3",
+      "scan_folder": "images/yamaha-r15",
+      "designs": [
+        { "src": "images/yamaha-r15/r15-01.png", "name": "Tron R15 1.0", "tag": "Stealth series" },
+        { "src": "images/yamaha-r15/r15-02.png", "name": "Tron R15 2.0", "tag": "Stealth series" }
+      ]
+    }
+  ]
+}
