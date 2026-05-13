@@ -237,6 +237,7 @@
     .nf-card-label { position:absolute;bottom:0;left:0;right:0;padding:10px 12px;opacity:0;transform:translateY(5px);transition:all .3s; }
     .nf-card:hover .nf-card-label { opacity:1;transform:translateY(0); }
     .nf-card-name { font-family:var(--display);font-size:16px;letter-spacing:.5px; }
+    .nf-card-price { font-family:var(--body);font-size:11px;font-weight:700;color:var(--green);letter-spacing:.3px;margin-top:3px; }
 
     /* Botones de flecha — siempre visibles */
     .nf-btn { position:absolute;top:50%;transform:translateY(-50%);background:rgba(10,10,10,.82);backdrop-filter:blur(10px);border:1px solid rgba(85,255,102,.22);color:var(--green);width:40px;height:88px;border-radius:6px;cursor:pointer;font-size:18px;z-index:3;transition:all .3s;display:flex;align-items:center;justify-content:center; }
@@ -257,6 +258,7 @@
     .lb-info { position:absolute;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap; }
     .lb-info-tag { font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green); }
     .lb-info-name { font-family:var(--display);font-size:26px;letter-spacing:1px;margin-top:4px; }
+    .lb-info-price { font-family:var(--body);font-size:13px;font-weight:700;color:var(--green);margin-top:6px;letter-spacing:.3px; }
 
     /* ============================================================
        PROBLEM
@@ -832,7 +834,7 @@
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#inicio" class="logo">
-      <img class="logo-img" src="images/logo.png" alt="Wrap House Design logo">
+      <img class="logo-img" src="images/logo.svg" alt="Wrap House Design logo">
       <span class="logo-text">WRAP HOUSE <em>DESIGN</em></span>
     </a>
     <ul class="nav-links">
@@ -911,6 +913,7 @@
   <div class="lb-info">
     <p class="lb-info-tag" id="lbTag"></p>
     <p class="lb-info-name" id="lbName"></p>
+    <p class="lb-info-price" id="lbPrice"></p>
   </div>
 </div>
 
@@ -1322,7 +1325,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img class="f-logo-img" src="images/logo.png" alt="Wrap House Design">
+        <img class="f-logo-img" src="images/logo.svg" alt="Wrap House Design">
         <p class="f-brand-text">Estudio de diseño especializado en personalización de motos deportivas. Calidad garantizada, servicio a tiempo y diseños 100% a tu gusto. Aquí lo que sobra es estilo.</p>
         <div class="f-socials">
           <a href="https://www.tiktok.com/@wraphouse_design_oficial" class="f-social" title="TikTok" target="_blank" rel="noopener">
@@ -1455,14 +1458,16 @@ document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
   const lbTag = document.getElementById('lbTag');
-  const lbName= document.getElementById('lbName');
+  const lbName  = document.getElementById('lbName');
+  const lbPrice = document.getElementById('lbPrice');
   let lbData = [], lbCur = 0;
 
   function lbShow(i) {
     lbCur = i;
     lbImg.src = lbData[i].src;
-    lbTag.textContent  = lbData[i].tag  || '';
-    lbName.textContent = lbData[i].name || '';
+    lbTag.textContent   = lbData[i].tag   || '';
+    lbName.textContent  = lbData[i].name  || '';
+    lbPrice.textContent = lbData[i].price ? '$' + lbData[i].price : '';
   }
   function lbOpen(i) { lbShow(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
   function lbClose()  { lb.classList.remove('open'); document.body.style.overflow = ''; }
@@ -1490,9 +1495,10 @@ document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
   function buildCard(d) {
     const card = document.createElement('div');
     card.className = 'nf-card';
-    card.dataset.src  = d.src;
-    card.dataset.tag  = d.tag  || '';
-    card.dataset.name = d.name || '';
+    card.dataset.src   = d.src;
+    card.dataset.tag   = d.tag   || '';
+    card.dataset.name  = d.name  || '';
+    if (d.price) card.dataset.price = d.price;
     const img = document.createElement('img');
     img.src     = d.src;
     img.alt     = d.name || '';
@@ -1505,6 +1511,12 @@ document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
     nm.className = 'nf-card-name';
     nm.textContent = d.name || '';
     lbl.appendChild(nm);
+    if (d.price) {
+      const pr = document.createElement('p');
+      pr.className = 'nf-card-price';
+      pr.textContent = '$' + d.price;
+      lbl.appendChild(pr);
+    }
     card.append(img, ov, lbl);
     return card.outerHTML;
   }
@@ -1546,7 +1558,7 @@ document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
       if (subtitle) subtitle.textContent = names + ' — Clic en cualquier diseño para verlo completo.';
 
       /* Alimentar lightbox con todos los diseños de todos los modelos */
-      lbData = data.models.flatMap(m => m.designs.map(d => ({ src: d.src, tag: d.tag, name: d.name })));
+      lbData = data.models.flatMap(m => m.designs.map(d => ({ src: d.src, tag: d.tag, name: d.name, price: d.price || '' })));
 
       /* Activar reveal para los nuevos elementos */
       observeReveal(container);
