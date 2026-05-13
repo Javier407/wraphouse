@@ -8,8 +8,8 @@
       "label": "GIXXER SF 150",
       "scan_folder": "images/gixxer-sf",
       "designs": [
-        { "src": "images/centro1.png",          "name": "Neon Green",       "tag": "Studio series"   },
-        { "src": "images/centro2.png",          "name": "Phantom Purple",   "tag": "Studio series"   },
+        { "src": "images/centro1.png",          "name": "Diseño XX 4.0",    "tag": "Studio series",   "price": "590.000" },
+        { "src": "images/centro2.png",          "name": "Diseño LR SF 7.0", "tag": "Studio series",   "price": "560.000" },
         { "src": "images/gixxer-sf/sf01.png",   "name": "DG SF 13.0",      "tag": "Custom series",   "price": "390.000" },
         { "src": "images/gixxer-sf/sf02.png",   "name": "Hayabusa SF 3.0", "tag": "Limited edition", "price": "380.000" },
         { "src": "images/gixxer-sf/sf03.png",   "name": "Red Bull SF 8.0", "tag": "Racing series",   "price": "380.000" },
