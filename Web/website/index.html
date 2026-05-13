@@ -291,8 +291,8 @@
     .ppf-feat-title { font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:6px; }
     .ppf-feat-text { font-size:12px;color:rgba(245,245,245,.46);line-height:1.5; }
 
-    /* PPF image pair */
-    .ppf-imgs { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    /* PPF images */
+    .ppf-imgs { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
     .ppf-img-wrap { position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3; }
     .ppf-img { width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease); }
     .ppf-img-wrap:hover .ppf-img { transform:scale(1.04); }
@@ -642,7 +642,7 @@
       .proc-text { font-size:12.5px; }
 
       /* PPF */
-      .ppf-imgs { grid-template-columns:1fr; }
+      .ppf-imgs { grid-template-columns:1fr 1fr; }
       .ppf-duracion { flex-direction:column;align-items:flex-start;gap:10px; }
       .ppf-dur-value { font-size:42px; }
       .ppf-feats { grid-template-columns:1fr 1fr; }
@@ -1002,10 +1002,13 @@
       <div>
         <div class="ppf-imgs reveal d2">
           <div class="ppf-img-wrap">
-            <img class="ppf-img" src="images/ppf/ppf03.png" alt="Instalación PPF en carenado Suzuki">
+            <img class="ppf-img" src="images/ppf/ppf01.png" alt="PPF aplicado en moto deportiva">
           </div>
           <div class="ppf-img-wrap">
             <img class="ppf-img" src="images/ppf/ppf02.png" alt="Aplicación de PPF en tanque">
+          </div>
+          <div class="ppf-img-wrap">
+            <img class="ppf-img" src="images/ppf/ppf04.png" alt="Resultado final PPF">
           </div>
         </div>
 
