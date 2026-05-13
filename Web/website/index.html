@@ -293,14 +293,17 @@
 
     /* PPF image pair */
     .ppf-imgs { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
-    .ppf-img-wrap { position:relative;border-radius:14px;overflow:hidden; }
-    .ppf-img-wrap.tall { grid-column:span 2;aspect-ratio:16/9; }
-    .ppf-img-wrap.half { aspect-ratio:4/3; }
+    .ppf-img-wrap { position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3; }
     .ppf-img { width:100%;height:100%;object-fit:cover;transition:transform .65s var(--ease); }
     .ppf-img-wrap:hover .ppf-img { transform:scale(1.04); }
-    .ppf-badge { position:absolute;bottom:18px;right:18px;background:rgba(5,5,5,.75);border:1px solid rgba(85,255,102,.38);backdrop-filter:blur(14px);border-radius:10px;padding:14px 18px; }
-    .ppf-badge-label { font-size:10px;letter-spacing:2px;color:rgba(245,245,245,.45);text-transform:uppercase;margin-bottom:4px; }
-    .ppf-badge-val { font-family:var(--display);font-size:26px;color:var(--green); }
+
+    /* Duración destacada */
+    .ppf-duracion { display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:16px;background:rgba(85,255,102,.07);border:1px solid rgba(85,255,102,.3);border-radius:14px;padding:20px 24px; }
+    .ppf-dur-left { display:flex;flex-direction:column;gap:2px; }
+    .ppf-dur-label { font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(245,245,245,.45); }
+    .ppf-dur-sub { font-size:12px;color:rgba(245,245,245,.4);margin-top:4px; }
+    .ppf-dur-value { font-family:var(--display);font-size:52px;line-height:1;color:var(--green);letter-spacing:2px;white-space:nowrap; }
+    .ppf-dur-value span { font-size:20px;margin-left:4px;letter-spacing:3px; }
 
     /* ============================================================
        BEFORE / AFTER
@@ -640,7 +643,8 @@
 
       /* PPF */
       .ppf-imgs { grid-template-columns:1fr; }
-      .ppf-img-wrap.tall,.ppf-img-wrap.half { grid-column:span 1; }
+      .ppf-duracion { flex-direction:column;align-items:flex-start;gap:10px; }
+      .ppf-dur-value { font-size:42px; }
       .ppf-feats { grid-template-columns:1fr 1fr; }
 
       /* Before/After */
@@ -803,6 +807,7 @@
       .h1-word, .hero-eyebrow, .hero-sub, .hero-btns,
       .scroll-hint, .proc-dot::after, .wa-float-btn::before,
       .scroll-line::after { animation:none !important; }
+      .h1-word, .hero-eyebrow, .hero-sub, .hero-btns { opacity:1 !important; transform:none !important; }
       .reveal { opacity:1 !important; transform:none !important; }
     }
 
@@ -993,20 +998,24 @@
         </div>
       </div>
 
-      <!-- Dos fotos reales de instalación PPF -->
-      <div class="ppf-imgs reveal d2">
-        <div class="ppf-img-wrap tall">
-          <img class="ppf-img" src="images/ppf/ppf03.png" alt="Instalación PPF en carenado Suzuki">
-          <div class="ppf-badge">
-            <div class="ppf-badge-label">Garantía incluida</div>
-            <div class="ppf-badge-val">5 AÑOS</div>
+      <!-- Fotos reales de instalación PPF -->
+      <div>
+        <div class="ppf-imgs reveal d2">
+          <div class="ppf-img-wrap">
+            <img class="ppf-img" src="images/ppf/ppf03.png" alt="Instalación PPF en carenado Suzuki">
+          </div>
+          <div class="ppf-img-wrap">
+            <img class="ppf-img" src="images/ppf/ppf02.png" alt="Aplicación de PPF en tanque">
           </div>
         </div>
-        <div class="ppf-img-wrap half">
-          <img class="ppf-img" src="images/ppf/ppf02.png" alt="Aplicación de PPF en tanque">
-        </div>
-        <div class="ppf-img-wrap half">
-          <img class="ppf-img" src="images/ppf/ppf04.png" alt="Resultado final PPF">
+
+        <!-- Duración destacada -->
+        <div class="ppf-duracion reveal d3">
+          <div class="ppf-dur-left">
+            <div class="ppf-dur-label">Duración del material</div>
+            <div class="ppf-dur-sub">Garantía incluida · Lámina importada de alta calidad</div>
+          </div>
+          <div class="ppf-dur-value">5<span>AÑOS</span></div>
         </div>
       </div>
     </div>
