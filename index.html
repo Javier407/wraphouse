@@ -427,17 +427,22 @@
     .btn-wa:hover { background:#44ee55;box-shadow:0 0 64px rgba(85,255,102,.42),0 0 0 14px rgba(85,255,102,.09);transform:translateY(-5px) scale(1.02); }
     .btn-wa svg { width:22px;height:22px;flex-shrink:0; }
 
-    /* ── BOTÓN FLOTANTE WHATSAPP ── */
-    .wa-float { position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;align-items:center;gap:0;cursor:pointer;text-decoration:none; }
-    .wa-float-label { background:rgba(10,10,10,.9);backdrop-filter:blur(10px);color:var(--white);font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.5px;padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.08);white-space:nowrap;opacity:0;transform:translateX(8px);transition:all .3s var(--ease);pointer-events:none;margin-right:10px; }
-    .wa-float:hover .wa-float-label { opacity:1;transform:translateX(0); }
-    .wa-float-btn { width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s; flex-shrink:0; }
+    /* ── BOTONES FLOTANTES ── */
+    .float-stack { position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:14px; }
+    .wa-float,.loc-float { display:flex;align-items:center;gap:0;cursor:pointer;text-decoration:none; }
+    .wa-float-label,.loc-float-label { background:rgba(10,10,10,.9);backdrop-filter:blur(10px);color:var(--white);font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.5px;padding:8px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.08);white-space:nowrap;opacity:0;transform:translateX(8px);transition:all .3s var(--ease);pointer-events:none;margin-right:10px; }
+    .wa-float:hover .wa-float-label,.loc-float:hover .loc-float-label { opacity:1;transform:translateX(0); }
+    .wa-float-btn { width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;flex-shrink:0;position:relative; }
     .wa-float:hover .wa-float-btn { transform:scale(1.1);box-shadow:0 6px 32px rgba(37,211,102,.65); }
     .wa-float-btn svg { width:30px;height:30px; }
-    /* Anillo de pulso */
     .wa-float-btn::before { content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:waPulse 2.4s ease-out infinite;z-index:-1; }
+    /* Botón ubicación */
+    .loc-float-btn { width:58px;height:58px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(85,255,102,.4);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;flex-shrink:0;position:relative; }
+    .loc-float:hover .loc-float-btn { transform:scale(1.1);box-shadow:0 6px 32px rgba(85,255,102,.6); }
+    .loc-float-btn svg { width:26px;height:26px; }
+    .loc-float-btn::before { content:'';position:absolute;inset:0;border-radius:50%;background:var(--green);animation:waPulse 2.4s ease-out 1.2s infinite;z-index:-1; }
     @keyframes waPulse { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(1.45);opacity:0} }
-    @media(max-width:768px) { .wa-float { bottom:18px;right:16px; } .wa-float-btn { width:52px;height:52px; } .wa-float-label { display:none; } }
+    @media(max-width:768px) { .float-stack { bottom:18px;right:16px;gap:12px; } .wa-float-btn,.loc-float-btn { width:52px;height:52px; } .wa-float-label,.loc-float-label { display:none; } }
 
     /* ============================================================
        FOOTER
@@ -1873,7 +1878,21 @@ setTimeout(()=>{
 </script>
 
 
-<!-- BOTÓN FLOTANTE WHATSAPP -->
+<!-- BOTONES FLOTANTES -->
+<div class="float-stack">
+
+<!-- Ubicación -->
+<a class="loc-float" href="https://www.google.com/maps/place/Wrap+house+design/@4.6935102,-74.1072892,17z" target="_blank" rel="noopener" aria-label="Ver ubicación en Google Maps">
+  <span class="loc-float-label">Cómo llegar</span>
+  <div class="loc-float-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      <circle cx="12" cy="9" r="2.5" fill="#050505" stroke="none"/>
+    </svg>
+  </div>
+</a>
+
+<!-- WhatsApp -->
 <a class="wa-float" href="https://wa.me/573242453301?text=Hola%21+Quiero+cotizar+un+diseño+para+mi+moto." target="_blank" rel="noopener" aria-label="Cotizar por WhatsApp">
   <span class="wa-float-label">Cotiza</span>
   <div class="wa-float-btn">
@@ -1882,5 +1901,7 @@ setTimeout(()=>{
     </svg>
   </div>
 </a>
+
+</div><!-- /float-stack -->
 </body>
 </html>
