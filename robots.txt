@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://javier407.github.io/wraphouse/sitemap.xml
+Sitemap: https://wraphousedesign.com/sitemap.xml
