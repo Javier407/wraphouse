@@ -166,7 +166,8 @@
     ============================================================ */
     .hero { position:relative;height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:flex-end; }
 
-    .hero-video { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transform:scaleX(-1); }
+    .hero-video { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;z-index:0;transform:scaleX(-1);transition:opacity 1.2s ease; }
+    #hero-v2 { opacity:0; }
 
     .hero-ov { position:absolute;inset:0;background:linear-gradient(105deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.6) 55%,rgba(5,5,5,.25) 100%); }
     .hero-ov-top { position:absolute;top:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,rgba(5,5,5,.85),transparent);z-index:1; }
@@ -879,7 +880,10 @@
      HERO — IMAGEN
 ============================================================ -->
 <section class="hero" id="inicio">
-  <video class="hero-video" autoplay loop muted playsinline poster="images/centro1.png">
+  <video class="hero-video" id="hero-v1" autoplay muted playsinline poster="images/centro1.png">
+    <source src="images/inicio.mp4" type="video/mp4">
+  </video>
+  <video class="hero-video" id="hero-v2" muted playsinline>
     <source src="images/inicio.mp4" type="video/mp4">
   </video>
   <div class="hero-ov"></div>
@@ -1447,6 +1451,27 @@ const co=new IntersectionObserver(es=>{
 },{threshold:.5});
 document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
 
+
+/* SEAMLESS VIDEO LOOP — crossfade entre dos instancias */
+(function(){
+  const v1=document.getElementById('hero-v1');
+  const v2=document.getElementById('hero-v2');
+  let cur=v1, nxt=v2, busy=false;
+  function swap(){
+    if(busy)return; busy=true;
+    nxt.currentTime=0;
+    nxt.play().then(()=>{
+      nxt.style.opacity='1';
+      cur.style.opacity='0';
+      setTimeout(()=>{ cur.pause(); cur.currentTime=0; [cur,nxt]=[nxt,cur]; busy=false; },1300);
+    }).catch(()=>{ busy=false; });
+  }
+  function check(v){ if(!busy&&v.duration&&v.currentTime>=v.duration-1.4) swap(); }
+  v1.addEventListener('timeupdate',()=>check(v1));
+  v2.addEventListener('timeupdate',()=>check(v2));
+  v1.addEventListener('ended',swap);
+  v2.addEventListener('ended',swap);
+})();
 
 /* ═══════════════════════════════════════════════════════════
    CARRUSELES DINÁMICOS — Lee designs.json, renderiza todo
