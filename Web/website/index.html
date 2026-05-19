@@ -166,10 +166,7 @@
     ============================================================ */
     .hero { position:relative;height:100vh;min-height:680px;overflow:hidden;display:flex;align-items:flex-end; }
 
-    .hero-slides { position:absolute;inset:0;overflow:hidden; }
-    .hero-slide { position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease; }
-    .hero-slide.active { opacity:1; }
-    .hero-slide img { width:100%;height:100%;object-fit:cover;transform:scale(1.04); }
+    .hero-video { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0; }
 
     .hero-ov { position:absolute;inset:0;background:linear-gradient(105deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.6) 55%,rgba(5,5,5,.25) 100%); }
     .hero-ov-top { position:absolute;top:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,rgba(5,5,5,.85),transparent);z-index:1; }
@@ -882,10 +879,9 @@
      HERO — IMAGEN
 ============================================================ -->
 <section class="hero" id="inicio">
-  <div class="hero-slides" id="heroSlides">
-    <div class="hero-slide active"><img src="images/centro1.png" alt="Wrap House Design — Neon Green" fetchpriority="high"></div>
-    <div class="hero-slide"><img src="images/centro2.png" alt="Wrap House Design — Phantom Purple" loading="lazy"></div>
-  </div>
+  <video class="hero-video" autoplay loop muted playsinline poster="images/centro1.png">
+    <source src="images/inicio.mp4" type="video/mp4">
+  </video>
   <div class="hero-ov"></div>
   <div class="hero-ov-top"></div>
   <div class="hero-ov-bot"></div>
@@ -1451,16 +1447,6 @@ const co=new IntersectionObserver(es=>{
 },{threshold:.5});
 document.querySelectorAll('.stat-n[data-target]').forEach(el=>co.observe(el));
 
-/* HERO SLIDESHOW */
-(function(){
-  const slides=document.querySelectorAll('.hero-slide');
-  let idx=0;
-  setInterval(()=>{
-    slides[idx].classList.remove('active');
-    idx=(idx+1)%slides.length;
-    slides[idx].classList.add('active');
-  },5000);
-})();
 
 /* ═══════════════════════════════════════════════════════════
    CARRUSELES DINÁMICOS — Lee designs.json, renderiza todo
